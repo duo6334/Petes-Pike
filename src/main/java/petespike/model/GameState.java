@@ -1,5 +1,8 @@
 package petespike.model;
 
-public class GameState {
-    
+public enum GameState {
+    NEW,
+    IN_PROGRESS,
+    NO_MOVES,
+    WON
 }

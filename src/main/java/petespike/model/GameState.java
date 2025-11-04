@@ -1,5 +1,5 @@
 package petespike.model;
 
-public class GameState {
+public enum GameState {
     
 }

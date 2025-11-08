@@ -2,6 +2,7 @@ package petespike.model;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -92,7 +93,10 @@ public class PetesPike {
     }
 
     public List<Move> getPossibleMoves(){
-        
+        List<Move> result = new ArrayList<>();
+        for(Position peice:peices){
+
+        }
     }
 
 }

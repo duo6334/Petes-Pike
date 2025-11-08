@@ -1,5 +1,6 @@
 package petespike.view;
 
+import petespike.model.Move;
 import petespike.model.PetesPike;
 
 public class PetesPikeCLI {
@@ -11,6 +12,8 @@ public class PetesPikeCLI {
     public static final String HINT = "hint";
     public static final String QUIT = "quit";
 
+    private static String fileName;     // current puzzle filename
+
     /**
      * Display commands
      */
@@ -19,7 +22,7 @@ public class PetesPikeCLI {
         System.out.println("Commands:");
         System.out.println("help - show commands");
         System.out.println("board - display current board");
-        System.out.println("reset - reset puzzle to initial state");
+        System.out.println("reset - reset puzzle");
         System.out.println("new <filename> - start a new puzzle");
         System.out.println("move <row> <col> <direction> - move piece (u, d, l, r)");
         System.out.println("hint - show a valid move");
@@ -46,7 +49,11 @@ public class PetesPikeCLI {
      */
 
       public static void reset(){
-
+        try {
+            PetesPike newGame = new PetesPike(fileName);
+        } catch (PetesPikeException e) {
+            System.out.println(e.getMessage());
+        }
       }
 
     /*
@@ -54,16 +61,29 @@ public class PetesPikeCLI {
      */
 
       public static void newGame(){
-
+        try {
+            fileName = "";
+            PetesPike newGame = new PetesPike(fileName);
+            play(newGame);
+        } catch (Exception e) {
+            System.out.println("Usage: new <filename>");
+        }
       }
 
     /*
      * valid move
      */
 
-      public static void hint(){
-
+      public static void hint(PetesPike game){
+         
       }
+
+    /*
+     * play game
+     */
+      public static void play(PetesPike game) {
+      }
+
 
     /*
      * main

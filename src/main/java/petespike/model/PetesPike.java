@@ -1,6 +1,8 @@
 package petespike.model;
 
+import java.io.FileReader;
 import java.util.List;
+import java.util.Scanner;
 
 public class PetesPike {
     private char MOUNTAIN_SYMBOL = 'T';
@@ -10,12 +12,16 @@ public class PetesPike {
     private int rows;
     private int cols;
     private GameState gameState;
-    private Position position;
     private Position mountainTop;
 
     public PetesPike(String filename){
         this.gameState=GameState.NEW;
+        try{
+            FileReader reader = new FileReader(filename);
 
+        }catch(IOException e){
+            
+        }
     }
 
     public int getMoveCount(){
@@ -39,7 +45,7 @@ public class PetesPike {
     }
 
     public char getSymbolAt(Position position){
-        
+
     }
 
     public Position getMountaintop(Position position){

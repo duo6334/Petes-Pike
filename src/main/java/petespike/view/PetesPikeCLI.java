@@ -52,12 +52,8 @@ public class PetesPikeCLI {
      * reset game
      */
 
-      public static void reset(){
-        try {
-            PetesPike newGame = new PetesPike(fileName);
-        } catch (PetesPikeException e) {
-            System.out.println(e.getMessage());
-        }
+      public static void reset() throws PetesPikeException{
+        PetesPike newGame = new PetesPike(fileName);
       }
 
     /*
@@ -101,7 +97,7 @@ public class PetesPikeCLI {
     /*
      * play game
      */
-      public static void play(PetesPike game) {
+      public static void play(PetesPike game) throws PetesPikeException {
         Scanner in = new Scanner(System.in);
         display(game);
         boolean quit = false;

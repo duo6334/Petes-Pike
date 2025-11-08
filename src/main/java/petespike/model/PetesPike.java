@@ -68,7 +68,7 @@ public class PetesPike {
 
     public void makeMove(Move move){
         if (move.getDirection() == Direction.UP){
-
+            while(board[this.Move.getPosition().getRow()][this.Move.getPosition.getColumn()])
         }
         else if (move.getDirection() == Direction.DOWN){
 

@@ -95,8 +95,37 @@ public class PetesPike {
     public List<Move> getPossibleMoves(){
         List<Move> result = new ArrayList<>();
         for(Position peice:peices){
-
+            int row = peice.getRow();
+            int col = peice.getCol();
+            for (int i = 0; i < 4; i++) {
+                if(i==0){
+                    for (int j = row; j > 0; j++) {
+                        if(board[j][col]!=' '){
+                            result.add(new Move(peice,Direction.UP));
+                        }
+                    }
+                }else if(i==1){
+                    for (int j = col; j > 0; j++) {
+                        if(board[j][col]!=' '){
+                            result.add(new Move(peice,Direction.UP));
+                        }
+                    }
+                }else if(i==2){
+                    for (int j = row; j > 0; j++) {
+                        if(board[j][col]!=' '){
+                            result.add(new Move(peice,Direction.UP));
+                        }
+                    }
+                }else{
+                    for (int j = row; j > 0; j++) {
+                        if(board[j][col]!=' '){
+                            result.add(new Move(peice,Direction.UP));
+                        }
+                    }
+                }
+            }
         }
+        return result;
     }
 
 }

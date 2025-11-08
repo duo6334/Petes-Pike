@@ -43,7 +43,7 @@ public class PetesPike {
                         this.peices.add(new Position(j,i));
                         this.board[i][j]='G';
                     }else{
-                        this.board[i][j]=' ';
+                        this.board[i][j]='-';
                     }
                 }
             }
@@ -70,7 +70,11 @@ public class PetesPike {
 
     public void makeMove(Move move){
         if (move.getDirection() == Direction.UP){
-            while(board[this.Move.getPosition().getRow()][this.Move.getPosition.getColumn()])
+            int i = 1;
+            char piece = getSymbolAt(move.getPosition());
+            while(board[move.getPosition().getRow() - i][move.getPosition().getCol()] == '-'){
+                i++;
+            }
         }
         else if (move.getDirection() == Direction.DOWN){
 

@@ -2,7 +2,6 @@ package petespike.view;
 
 import java.util.Scanner;
 
-import petespike.model.Move;
 import petespike.model.PetesPike;
 import petespike.model.PetesPikeException;
 
@@ -52,12 +51,8 @@ public class PetesPikeCLI {
      * reset game
      */
 
-      public static void reset(){
-        try {
-            PetesPike newGame = new PetesPike(fileName);
-        } catch (PetesPikeException e) {
-            System.out.println(e.getMessage());
-        }
+      public static void reset() throws PetesPikeException{
+        PetesPike newGame = new PetesPike(fileName);
       }
 
     /*
@@ -101,7 +96,7 @@ public class PetesPikeCLI {
     /*
      * play game
      */
-      public static void play(PetesPike game) {
+      public static void play(PetesPike game) throws PetesPikeException {
         Scanner in = new Scanner(System.in);
         display(game);
         boolean quit = false;
@@ -141,7 +136,19 @@ public class PetesPikeCLI {
      * main
      */
       public static void main(String[] args) {
-            
+        Scanner in = new Scanner(System.in);
+        System.out.print("Puzzle filename: ");
+        fileName = in.nextLine();
+
+         try {
+            PetesPike game = new PetesPike(fileName);
+            help();
+            play(game);
+        } catch (PetesPikeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        in.close();
       }
 
         

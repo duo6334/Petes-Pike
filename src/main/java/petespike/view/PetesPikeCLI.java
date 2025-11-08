@@ -2,7 +2,6 @@ package petespike.view;
 
 import java.util.Scanner;
 
-import petespike.model.Move;
 import petespike.model.PetesPike;
 import petespike.model.PetesPikeException;
 

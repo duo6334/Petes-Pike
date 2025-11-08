@@ -1,6 +1,7 @@
 package petespike.model;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,8 +23,8 @@ public class PetesPike {
             Scanner scanner = new Scanner(reader);
             String rowsAndColumns = scanner.nextLine();
             String[] rowsAndColumnsParts = rowsAndColumns.split(" ");
-            this.rows = rowsAndColumnsParts[0];
-            this.cols=rowsAndColumnsParts[1];
+            this.rows = Integer.valueOf(rowsAndColumnsParts[0]);
+            this.cols=Integer.valueOf(rowsAndColumnsParts[1]);
         }catch(IOException e){
 
         }

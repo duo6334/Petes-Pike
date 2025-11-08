@@ -10,6 +10,8 @@ public class PetesPike {
     private int rows;
     private int cols;
     private GameState gameState;
+    private Position position;
+    private Position mountainTop;
 
     public PetesPike(String filename){
         this.gameState=GameState.NEW;
@@ -37,15 +39,15 @@ public class PetesPike {
     }
 
     public char getSymbolAt(Position position){
-
+        
     }
 
     public Position getMountaintop(Position position){
-
+        return this.mountainTop;
     }
 
     public List<Move> getPossibleMoves(){
-
+        
     }
 
 }

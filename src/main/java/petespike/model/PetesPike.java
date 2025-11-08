@@ -37,6 +37,7 @@ public class PetesPike {
                     }else if(boardRow.charAt(j)=='P'){
                         this.pete=new Position(j,i);
                         this.board[i][j]='P';
+                        this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         this.peices.add(new Position(j,i));
                         this.board[i][j]='G';
@@ -83,7 +84,7 @@ public class PetesPike {
     }
 
     public char getSymbolAt(Position position){
-        
+        return board[position.getCol()][position.getRow()];
     }
 
     public Position getMountaintop(Position position){
@@ -95,4 +96,4 @@ public class PetesPike {
     }
 
 }
-}
+

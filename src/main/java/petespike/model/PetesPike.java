@@ -41,11 +41,23 @@ public class PetesPike {
     }
 
     public void makeMove(Move move){
+        if (move.getDirection() == Direction.UP){
 
+        }
+        else if (move.getDirection() == Direction.DOWN){
+
+        }
+        else if (move.getDirection() == Direction.LEFT){
+            
+        }
+        else if (move.getDirection() == Direction.RIGHT){
+            
+        }
+        moveCount++;
     }
 
     public char getSymbolAt(Position position){
-
+        
     }
 
     public Position getMountaintop(Position position){

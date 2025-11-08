@@ -37,9 +37,12 @@ public class PetesPike {
                     }else if(boardRow.charAt(j)=='P'){
                         this.pete=new Position(j,i);
                         this.board[i][j]='P';
-                    }else if(boardRow.charAt(j)=='P'){
-                        this.pete=new Position(j,i);
-                        this.board[i][j]='P';
+                    }else if(boardRow.charAt(j)!='-'){
+                        this.peices.add(new Position(j,i));
+                        this.board[i][j]='G';
+                    }else{
+                        this.board[i][j]=' ';
+                    }
                 }
             }
         }catch(IOException e){
@@ -92,4 +95,4 @@ public class PetesPike {
     }
 
 }
-
+}

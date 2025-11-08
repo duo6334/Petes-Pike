@@ -2,8 +2,11 @@ package petespike.view;
 
 import java.util.Scanner;
 
+import petespike.model.Direction;
+import petespike.model.Move;
 import petespike.model.PetesPike;
 import petespike.model.PetesPikeException;
+import petespike.model.Position;
 
 public class PetesPikeCLI {
     public static final String HELP = "help";
@@ -38,13 +41,40 @@ public class PetesPikeCLI {
      public static void display(PetesPike game){
        System.out.println(game);
        //get moves count
+       System.out.println("Moves: " + game.getMoveCount());
       }
 
     /**
      * Attempt to make a move.
      */
-      public static void move(String[] parts, PetesPike game) {
+      public static void move(String[] parts, PetesPike game) throws PetesPikeException {
+        try {
+            int row = Integer.parseInt(parts[1]);
+            int col = Integer.parseInt(parts[2]);
+            Position pos = new Position(row, col);
+            String dir = parts[3];
+            Direction direction;
 
+            if (dir.equals("u")) {
+            direction = Direction.UP;
+           } else if (dir.equals("d")) {
+            direction = Direction.DOWN;
+           } else if (dir.equals("l")) {
+            direction = Direction.LEFT;
+           } else if (dir.equals("r")) {
+            direction = Direction.RIGHT;
+           } else {
+            System.out.println("Direction must be u, d, l, or r.");
+            return;
+           }
+
+
+            Move move = new Move(pos, direction);
+            game.makeMove(move);
+
+        } catch (Exception e) {
+            System.out.println("Usage: move <row> <col> <direction>");
+        }
       }
 
     /*
@@ -53,6 +83,7 @@ public class PetesPikeCLI {
 
       public static void reset() throws PetesPikeException{
         PetesPike newGame = new PetesPike(fileName);
+        play(newGame);
       }
 
     /*
@@ -136,7 +167,19 @@ public class PetesPikeCLI {
      * main
      */
       public static void main(String[] args) {
-            
+        Scanner in = new Scanner(System.in);
+        System.out.print("Puzzle filename: ");
+        fileName = in.nextLine();
+
+         try {
+            PetesPike game = new PetesPike(fileName);
+            help();
+            play(game);
+        } catch (PetesPikeException e) {
+            System.out.println(e.getMessage());
+        }
+
+        in.close();
       }
 
         

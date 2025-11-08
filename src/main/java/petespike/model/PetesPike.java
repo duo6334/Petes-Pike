@@ -25,8 +25,15 @@ public class PetesPike {
             String[] rowsAndColumnsParts = rowsAndColumns.split(" ");
             this.rows = Integer.valueOf(rowsAndColumnsParts[0]);
             this.cols=Integer.valueOf(rowsAndColumnsParts[1]);
+            this.board =new char[this.rows][this.cols];
+            for(int i=0;i<this.rows;i++){
+                String boardRow=scanner.nextLine();
+                for(int j = 0; j < boardRow.length(); i++){
+                    this.board[i][j]=boardRow.charAt(j);
+                }
+            }
         }catch(IOException e){
-
+            throw new PetesPikeException();
         }
     }
 

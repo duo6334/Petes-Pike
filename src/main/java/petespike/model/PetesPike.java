@@ -26,14 +26,14 @@ public class PetesPike {
     public PetesPike(String filename) throws PetesPikeException{
         this.gameState=GameState.NEW;
         this.nextColor[0]=AsciiColorCodes.BLUE;
-        this.nextColor[1]=AsciiColorCodes.BLUE;
-        this.nextColor[2]=AsciiColorCodes.BLUE;
-        this.nextColor[3]=AsciiColorCodes.BLUE;
-        this.nextColor[4]=AsciiColorCodes.BLUE;
-        this.nextColor[5]=AsciiColorCodes.BLUE;
-        this.nextColor[6]=AsciiColorCodes.BLUE;
-        this.nextColor[7]=AsciiColorCodes.BLUE;
-        this.nextColor[8]=AsciiColorCodes.BLUE;
+        this.nextColor[1]=AsciiColorCodes.GREEN;
+        this.nextColor[2]=AsciiColorCodes.RED;
+        this.nextColor[3]=AsciiColorCodes.ORANGE;
+        this.nextColor[4]=AsciiColorCodes.CYAN;
+        this.nextColor[5]=AsciiColorCodes.PURPLE;
+        this.nextColor[6]=AsciiColorCodes.YELLOW;
+        this.nextColor[7]=AsciiColorCodes.MAGENTA;
+        this.nextColor[8]=AsciiColorCodes.LT_GRAY;
 
         int color=0;
         try{
@@ -57,7 +57,7 @@ public class PetesPike {
                         this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         this.peices.add(new Position(j,i));
-                        this.board[i][j]="G";
+                        this.board[i][j]=nextColor[color]+"G";
                         color+=1;
                     }else{
                         this.board[i][j]="-";

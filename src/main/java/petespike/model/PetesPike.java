@@ -15,6 +15,8 @@ public class PetesPike {
     private GameState gameState;
     private Position mountainTop;
     private char[][] board;
+    private Position pete;
+    private List<Position> peices;
 
     public PetesPike(String filename){
         this.gameState=GameState.NEW;
@@ -29,7 +31,15 @@ public class PetesPike {
             for(int i=0;i<this.rows;i++){
                 String boardRow=scanner.nextLine();
                 for(int j = 0; j < boardRow.length(); i++){
-                    this.board[i][j]=boardRow.charAt(j);
+                    if(boardRow.charAt(j)=='T'){
+                        this.mountainTop=new Position(j,i);
+                        this.board[i][j]='T';
+                    }else if(boardRow.charAt(j)=='P'){
+                        this.pete=new Position(j,i);
+                        this.board[i][j]='P';
+                    }else if(boardRow.charAt(j)=='P'){
+                        this.pete=new Position(j,i);
+                        this.board[i][j]='P';
                 }
             }
         }catch(IOException e){

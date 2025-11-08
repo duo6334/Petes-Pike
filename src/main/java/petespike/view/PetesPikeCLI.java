@@ -1,7 +1,10 @@
 package petespike.view;
 
+import java.util.Scanner;
+
 import petespike.model.Move;
 import petespike.model.PetesPike;
+import petespike.model.PetesPikeException;
 
 public class PetesPikeCLI {
     public static final String HELP = "help";
@@ -42,7 +45,7 @@ public class PetesPikeCLI {
      * Attempt to make a move.
      */
       public static void move(String[] parts, PetesPike game) {
-        
+
       }
 
     /*
@@ -79,10 +82,58 @@ public class PetesPikeCLI {
          
       }
 
+    /**
+     * quits the game
+     * 
+     * @return
+     */
+      public static boolean quit() {
+        return true;
+    }
+
+    /**
+     * displays the game board
+     */
+      public static void displayBoard(PetesPike game) {
+        System.out.println(game.toString());
+    }
+
     /*
      * play game
      */
       public static void play(PetesPike game) {
+        Scanner in = new Scanner(System.in);
+        display(game);
+        boolean quit = false;
+        while (quit == false) {
+            System.out.print("Command: ");
+            String command = in.nextLine();
+            String[] splitCommand = command.split(" "); // for "move" and "new" input
+            System.out.println();
+            switch (splitCommand[0]){
+              case HELP:
+                    help();
+                    break;
+                case QUIT:
+                    quit = quit();
+                    System.out.println("Goodbye!");
+                    return;
+                case MOVE:
+                    move(splitCommand, game);
+                    break;
+                case RESET:
+                    reset();
+                    break;
+                case HINT:
+                    hint(game);
+                    break;
+                case BOARD:
+                    displayBoard(game);
+                case NEW:
+                    displayBoard(game); 
+                    newGame();
+            }
+          }
       }
 
 

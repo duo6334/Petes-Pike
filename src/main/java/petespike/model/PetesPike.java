@@ -13,14 +13,19 @@ public class PetesPike {
     private int cols;
     private GameState gameState;
     private Position mountainTop;
+    private char[][] board;
 
     public PetesPike(String filename){
         this.gameState=GameState.NEW;
         try{
             FileReader reader = new FileReader(filename);
-
+            Scanner scanner = new Scanner(reader);
+            String rowsAndColumns = scanner.nextLine();
+            String[] rowsAndColumnsParts = rowsAndColumns.split(" ");
+            this.rows = rowsAndColumnsParts[0];
+            this.cols=rowsAndColumnsParts[1];
         }catch(IOException e){
-            
+
         }
     }
 

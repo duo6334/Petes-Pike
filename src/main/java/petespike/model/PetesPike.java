@@ -2,6 +2,7 @@ package petespike.model;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,6 +38,7 @@ public class PetesPike {
                     }else if(boardRow.charAt(j)=='P'){
                         this.pete=new Position(j,i);
                         this.board[i][j]='P';
+                        this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         this.peices.add(new Position(j,i));
                         this.board[i][j]='G';
@@ -83,7 +85,7 @@ public class PetesPike {
     }
 
     public char getSymbolAt(Position position){
-        
+        return board[position.getCol()][position.getRow()];
     }
 
     public Position getMountaintop(Position position){
@@ -91,8 +93,11 @@ public class PetesPike {
     }
 
     public List<Move> getPossibleMoves(){
-        
+        List<Move> result = new ArrayList<>();
+        for(Position peice:peices){
+
+        }
     }
 
 }
-}
+

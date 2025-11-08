@@ -99,27 +99,27 @@ public class PetesPike {
             int col = peice.getCol();
             for (int i = 0; i < 4; i++) {
                 if(i==0){
-                    for (int j = row; j > 0; j++) {
+                    for (int j = row-1; j > 0; j--) {
                         if(board[j][col]!=' '){
                             result.add(new Move(peice,Direction.UP));
                         }
                     }
                 }else if(i==1){
-                    for (int j = col; j > 0; j++) {
-                        if(board[j][col]!=' '){
-                            result.add(new Move(peice,Direction.UP));
+                    for (int j = col-1; j > 0; j--) {
+                        if(board[row][j]!=' '){
+                            result.add(new Move(peice,Direction.LEFT));
                         }
                     }
                 }else if(i==2){
-                    for (int j = row; j > 0; j++) {
+                    for (int j = row+1; j < this.rows; j++) {
                         if(board[j][col]!=' '){
-                            result.add(new Move(peice,Direction.UP));
+                            result.add(new Move(peice,Direction.DOWN));
                         }
                     }
                 }else{
-                    for (int j = row; j > 0; j++) {
-                        if(board[j][col]!=' '){
-                            result.add(new Move(peice,Direction.UP));
+                    for (int j = col+1; j < this.cols; j++) {
+                        if(board[row][j]!=' '){
+                            result.add(new Move(peice,Direction.RIGHT));
                         }
                     }
                 }

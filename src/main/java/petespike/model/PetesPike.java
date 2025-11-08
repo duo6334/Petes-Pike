@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import petespike.view.AsciiColorCodes;
+
 public class PetesPike {
     private char MOUNTAIN_SYMBOL = 'T';
     public char EMPTY_SYMBOL = '-';
@@ -15,12 +17,25 @@ public class PetesPike {
     private int cols;
     private GameState gameState;
     private Position mountainTop;
-    private char[][] board;
+    private String[][] board;
     private Position pete;
     private List<Position> peices;
+    private String[] nextColor= new String[9];
 
-    public PetesPike(String filename){
+
+    public PetesPike(String filename) throws PetesPikeException{
         this.gameState=GameState.NEW;
+        this.nextColor[0]=AsciiColorCodes.BLUE;
+        this.nextColor[1]=AsciiColorCodes.BLUE;
+        this.nextColor[2]=AsciiColorCodes.BLUE;
+        this.nextColor[3]=AsciiColorCodes.BLUE;
+        this.nextColor[4]=AsciiColorCodes.BLUE;
+        this.nextColor[5]=AsciiColorCodes.BLUE;
+        this.nextColor[6]=AsciiColorCodes.BLUE;
+        this.nextColor[7]=AsciiColorCodes.BLUE;
+        this.nextColor[8]=AsciiColorCodes.BLUE;
+
+        int color=0;
         try{
             FileReader reader = new FileReader(filename);
             Scanner scanner = new Scanner(reader);
@@ -28,27 +43,29 @@ public class PetesPike {
             String[] rowsAndColumnsParts = rowsAndColumns.split(" ");
             this.rows = Integer.valueOf(rowsAndColumnsParts[0]);
             this.cols=Integer.valueOf(rowsAndColumnsParts[1]);
-            this.board =new char[this.rows][this.cols];
+            this.board =new String[this.rows][this.cols];
+            scanner.close();
             for(int i=0;i<this.rows;i++){
                 String boardRow=scanner.nextLine();
                 for(int j = 0; j < boardRow.length(); i++){
                     if(boardRow.charAt(j)=='T'){
                         this.mountainTop=new Position(j,i);
-                        this.board[i][j]='T';
+                        this.board[i][j]="T";
                     }else if(boardRow.charAt(j)=='P'){
                         this.pete=new Position(j,i);
-                        this.board[i][j]='P';
+                        this.board[i][j]=AsciiColorCodes.GOLD+"P";
                         this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         this.peices.add(new Position(j,i));
-                        this.board[i][j]='G';
+                        this.board[i][j]="G";
+                        color+=1;
                     }else{
-                        this.board[i][j]=' ';
+                        this.board[i][j]="-";
                     }
                 }
             }
         }catch(IOException e){
-            throw new PetesPikeException();
+            throw new PetesPikeException("File not found");
         }
     }
 
@@ -85,7 +102,7 @@ public class PetesPike {
     }
 
     public char getSymbolAt(Position position){
-        return board[position.getCol()][position.getRow()];
+        return board[position.getCol()][position.getRow()].toCharArray()[0];
     }
 
     public Position getMountaintop(Position position){
@@ -100,25 +117,25 @@ public class PetesPike {
             for (int i = 0; i < 4; i++) {
                 if(i==0){
                     for (int j = row-1; j > 0; j--) {
-                        if(board[j][col]!=' '){
+                        if(board[j][col]!="-"){
                             result.add(new Move(peice,Direction.UP));
                         }
                     }
                 }else if(i==1){
                     for (int j = col-1; j > 0; j--) {
-                        if(board[row][j]!=' '){
+                        if(board[row][j]!="-"){
                             result.add(new Move(peice,Direction.LEFT));
                         }
                     }
                 }else if(i==2){
                     for (int j = row+1; j < this.rows; j++) {
-                        if(board[j][col]!=' '){
+                        if(board[j][col]!="-"){
                             result.add(new Move(peice,Direction.DOWN));
                         }
                     }
                 }else{
                     for (int j = col+1; j < this.cols; j++) {
-                        if(board[row][j]!=' '){
+                        if(board[row][j]!="-"){
                             result.add(new Move(peice,Direction.RIGHT));
                         }
                     }

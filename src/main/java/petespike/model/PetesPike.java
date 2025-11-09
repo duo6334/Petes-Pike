@@ -106,7 +106,7 @@ public class PetesPike {
             int i = (getRows() - move.getPosition().getRow());
             while(board[i - 1][move.getPosition().getCol()].equals(blank)){
                 if (i == 0) {
-                    break;
+                    throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i--;
             }
@@ -117,7 +117,7 @@ public class PetesPike {
             int i = (getRows() - move.getPosition().getRow());
             while(board[i + 1][move.getPosition().getCol()].equals(blank)){
                 if (i > getRows()) {
-                    break;
+                    throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i++;
             }
@@ -128,7 +128,7 @@ public class PetesPike {
             int i = (getCols() - move.getPosition().getCol());
             while(board[move.getPosition().getRow()][i - 1].equals(blank)){
                 if (i == 0) {
-                    break;
+                    throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i--;
             }
@@ -138,8 +138,8 @@ public class PetesPike {
         else if (move.getDirection() == Direction.RIGHT){
             int i = (getCols() - move.getPosition().getCol());
             while(board[move.getPosition().getRow()][i + 1].equals(blank)){
-                if (i == 0) {
-                    break;
+                if (i > getCols()) {
+                    throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i++;
             }

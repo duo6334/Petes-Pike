@@ -99,28 +99,58 @@ public class PetesPike {
         return this.gameState;
     }
 
-    public void makeMove(Move move){
+    public void makeMove(Move move) throws PetesPikeException{
+        String piece = getSymbolAt(move.getPosition());
+        String blank = "-";
         if (move.getDirection() == Direction.UP){
-            int i = 1;
-            char piece = getSymbolAt(move.getPosition());
-            while(board[move.getPosition().getRow() - i][move.getPosition().getCol()] == "-"){
-                i++;
+            int i = (getRows() - move.getPosition().getRow());
+            while(board[i - 1][move.getPosition().getCol()].equals(blank)){
+                if (i == 0) {
+                    break;
+                }
+                i--;
             }
+            board[i][move.getPosition().getCol()] = piece;
+            board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.DOWN){
-
+            int i = (getRows() - move.getPosition().getRow());
+            while(board[i + 1][move.getPosition().getCol()].equals(blank)){
+                if (i > getRows()) {
+                    break;
+                }
+                i++;
+            }
+            board[i][move.getPosition().getCol()] = piece;
+            board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.LEFT){
-            
+            int i = (getCols() - move.getPosition().getCol());
+            while(board[move.getPosition().getRow()][i - 1].equals(blank)){
+                if (i == 0) {
+                    break;
+                }
+                i--;
+            }
+            board[move.getPosition().getRow()][i] = piece;
+            board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.RIGHT){
-            
+            int i = (getCols() - move.getPosition().getCol());
+            while(board[move.getPosition().getRow()][i + 1].equals(blank)){
+                if (i == 0) {
+                    break;
+                }
+                i++;
+            }
+            board[move.getPosition().getRow()][i] = piece;
+            board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         moveCount++;
     }
 
-    public char getSymbolAt(Position position){
-        return board[position.getCol()][position.getRow()].toCharArray()[0];
+    public String getSymbolAt(Position position){
+        return board[position.getCol()][position.getRow()]; //had to change this for my code to work but did not double check if this is correct
     }
 
     public Position getMountaintop(Position position){

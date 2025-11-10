@@ -99,12 +99,21 @@ public class PetesPike {
         return this.gameState;
     }
 
+
+    1 
+    2 t
+    3 
+    4
+    5
+    6
+    7
+    8
     public void makeMove(Move move) throws PetesPikeException{
         String piece = getSymbolAt(move.getPosition());
         String blank = "-";
         if (move.getDirection() == Direction.UP){
-            int i = (getRows() - move.getPosition().getRow());
-            while(board[i - 1][move.getPosition().getCol()].equals(blank)){
+            int i = (move.getPosition().getRow() - 1);
+            while(board[i][move.getPosition().getCol()].equals(blank)){
                 if (i == 0) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
@@ -114,8 +123,8 @@ public class PetesPike {
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.DOWN){
-            int i = (getRows() - move.getPosition().getRow());
-            while(board[i + 1][move.getPosition().getCol()].equals(blank)){
+            int i = (move.getPosition().getRow() + 1);
+            while(board[i][move.getPosition().getCol()].equals(blank)){
                 if (i > getRows()) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
@@ -125,8 +134,8 @@ public class PetesPike {
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.LEFT){
-            int i = (getCols() - move.getPosition().getCol());
-            while(board[move.getPosition().getRow()][i - 1].equals(blank)){
+            int i = (move.getPosition().getCol() - 1);
+            while(board[move.getPosition().getRow()][i].equals(blank)){
                 if (i == 0) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
@@ -136,8 +145,8 @@ public class PetesPike {
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.RIGHT){
-            int i = (getCols() - move.getPosition().getCol());
-            while(board[move.getPosition().getRow()][i + 1].equals(blank)){
+            int i = (move.getPosition().getCol() + 1);
+            while(board[move.getPosition().getRow()][i].equals(blank)){
                 if (i > getCols()) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }

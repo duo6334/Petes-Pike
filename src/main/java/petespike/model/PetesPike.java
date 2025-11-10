@@ -19,7 +19,7 @@ public class PetesPike {
     private Position mountainTop;
     private String[][] board;
     private Position pete;
-    private List<Position> peices;
+    private List<Position> peices = new ArrayList<>();
     private String[] nextColor= new String[9];
 
 
@@ -202,5 +202,16 @@ public class PetesPike {
         return result;
     }
 
+    @Override
+    public String toString(){
+        String result = "";
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                result += board[i][j];
+            }
+            result+="\n";
+        }
+        return result;
+    }
 }
 

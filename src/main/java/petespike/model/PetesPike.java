@@ -50,14 +50,14 @@ public class PetesPike {
             //makes the board using the number of rows and columns
             this.rows = Integer.valueOf(rowsAndColumnsParts[0]);
             this.cols=Integer.valueOf(rowsAndColumnsParts[1]);
-            this.board =new String[this.rows][this.cols];
+            this.board =new String[rows][cols];
             
 
             //this fills in the board, iterates over the rows to create a 2d array
             for(int i=0;i<this.rows;i++){
                 String boardRow=scanner.nextLine();
                 //this uses the scanner to look through the lines, and fill in the board according to the file
-                for(int j = 0; j < boardRow.length(); i++){
+                for(int j = 0; j < boardRow.length(); j++){
                     if(boardRow.charAt(j)=='T'){
                         //takes special note of the mountain top, and stores it for easy reference
                         this.mountainTop=new Position(j,i);
@@ -65,12 +65,12 @@ public class PetesPike {
                     }else if(boardRow.charAt(j)=='P'){
                         //takes special note of pete, and stores it for easy reference
                         this.pete=new Position(j,i);
-                        this.board[i][j]=AsciiColorCodes.GOLD+"P";
+                        this.board[i][j]=AsciiColorCodes.GOLD+"P"+AsciiColorCodes.RESET;
                         this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         //takes special note of all peices, and stores them for easy reference particularly in finding available moves
                         this.peices.add(new Position(j,i));
-                        this.board[i][j]=nextColor[color]+"G";
+                        this.board[i][j]=nextColor[color]+"G"+AsciiColorCodes.RESET;
                         color+=1;
                     }else{
                         this.board[i][j]="-";

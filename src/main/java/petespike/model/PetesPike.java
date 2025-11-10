@@ -112,6 +112,7 @@ public class PetesPike {
                 }
                 i--;
             }
+            i++;
             board[i][move.getPosition().getCol()] = piece;
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
@@ -123,6 +124,7 @@ public class PetesPike {
                 }
                 i++;
             }
+            i--;
             board[i][move.getPosition().getCol()] = piece;
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
@@ -134,6 +136,7 @@ public class PetesPike {
                 }
                 i--;
             }
+            i++;
             board[move.getPosition().getRow()][i] = piece;
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
@@ -145,8 +148,12 @@ public class PetesPike {
                 }
                 i++;
             }
+            i--;
             board[move.getPosition().getRow()][i] = piece;
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
+        }
+        else{
+            throw new PetesPikeException("Direction not recognized");
         }
         moveCount++;
     }

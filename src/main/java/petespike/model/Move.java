@@ -19,7 +19,7 @@ public class Move {
 
     @Override 
     public String toString(){
-        String result = "("+position+")"+direction;
+        String result = "("+position+") "+direction;
         return result;
     }
 }

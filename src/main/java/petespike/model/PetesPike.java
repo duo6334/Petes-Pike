@@ -60,16 +60,16 @@ public class PetesPike {
                 for(int j = 0; j < boardRow.length(); j++){
                     if(boardRow.charAt(j)=='T'){
                         //takes special note of the mountain top, and stores it for easy reference
-                        this.mountainTop=new Position(j,i);
+                        this.mountainTop=new Position(i,j);
                         this.board[i][j]="T";
                     }else if(boardRow.charAt(j)=='P'){
                         //takes special note of pete, and stores it for easy reference
-                        this.pete=new Position(j,i);
+                        this.pete=new Position(i,j);
                         this.board[i][j]=AsciiColorCodes.GOLD+"P"+AsciiColorCodes.RESET;
                         this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         //takes special note of all peices, and stores them for easy reference particularly in finding available moves
-                        this.peices.add(new Position(j,i));
+                        this.peices.add(new Position(i,j));
                         this.board[i][j]=nextColor[color]+"G"+AsciiColorCodes.RESET;
                         color+=1;
                     }else{
@@ -152,7 +152,7 @@ public class PetesPike {
     }
 
     public String getSymbolAt(Position position){
-        return board[position.getCol()][position.getRow()]; //had to change this for my code to work but did not double check if this is correct
+        return board[position.getRow()][position.getCol()]; //had to change this for my code to work but did not double check if this is correct
     }
 
     public Position getMountaintop(Position position){
@@ -167,48 +167,50 @@ public class PetesPike {
             //stores the row and column for each peice
             int row = peice.getRow();
             int col = peice.getCol();
-            //loops through each direction that the peice can move
-            for (int i = 0; i < 4; i++) {
-                //differentiates which direction we are looking at
-                if(i==0){
-                    for (int j = row-1; j > 0; j--) {
-                        //checks if there is a peice to land against, and if so add it to the available moves
-                        if(board[j][col]!="-"){
-                            result.add(new Move(peice,Direction.UP));
-                        }
+            
+            //looks at each direction
+                //up
+                for (int j = row-1; j >= 0; j--) {
+                    //checks if there is a peice to land against, and if so add it to the available moves
+                    if(!board[j][col].equals("-")&&!board[j][col].equals("T")){ 
+                        result.add(new Move(peice,Direction.UP));
+                        break;
                     }
-                }else if(i==1){
-                    for (int j = col-1; j > 0; j--) {
-                        //checks if there is a peice to land against, and if so add it to the available moves
-                        if(board[row][j]!="-"){
-                            result.add(new Move(peice,Direction.LEFT));
-                        }
+                }
+                //Left
+                for (int j = col-1; j >= 0; j--) {
+                    //checks if there is a peice to land against, and if so add it to the available moves
+                    if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
+                        result.add(new Move(peice,Direction.LEFT));
+                        break;
                     }
-                }else if(i==2){
-                    for (int j = row+1; j < this.rows; j++) {
-                        //checks if there is a peice to land against, and if so add it to the available moves
-                        if(board[j][col]!="-"){
-                            result.add(new Move(peice,Direction.DOWN));
-                        }
+                }
+                //Down
+                for (int j = row+1; j < this.rows; j++) {
+                    //checks if there is a peice to land against, and if so add it to the available moves
+                    if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
+                        result.add(new Move(peice,Direction.DOWN));
+                        break;
                     }
-                }else{
-                    for (int j = col+1; j < this.cols; j++) {
-                        //checks if there is a peice to land against, and if so add it to the available moves
-                        if(board[row][j]!="-"){
-                            result.add(new Move(peice,Direction.RIGHT));
-                        }
+                }
+                //Right
+                for (int j = col+1; j < this.cols; j++) {
+                    //checks if there is a peice to land against, and if so add it to the available moves
+                    if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
+                        result.add(new Move(peice,Direction.RIGHT));
+                        break;
                     }
                 }
             }
-        }
+        
         return result;
     }
 
     @Override
     public String toString(){
         String result = "";
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 result += board[i][j];
             }
             result+="\n";

@@ -161,17 +161,18 @@ public class PetesPike {
     }
 
     public List<Move> getPossibleMoves(){
+        List<Position> tokens = makePeicesList();
         //creates the list to store moves
         List<Move> result = new ArrayList<>();
         //iterates through all peices we have
-        for(Position peice:peices){
+        for(Position peice:tokens){
             //stores the row and column for each peice
             int row = peice.getRow();
             int col = peice.getCol();
             
             //looks at each direction
                 //up
-                for (int j = row-1; j >= 0; j--) {
+                for (int j = row-2; j >= 0; j--) {
                     //checks if there is a peice to land against, and if so add it to the available moves
                     if(!board[j][col].equals("-")&&!board[j][col].equals("T")){ 
                         result.add(new Move(peice,Direction.UP));
@@ -179,7 +180,7 @@ public class PetesPike {
                     }
                 }
                 //Left
-                for (int j = col-1; j >= 0; j--) {
+                for (int j = col-2; j >= 0; j--) {
                     //checks if there is a peice to land against, and if so add it to the available moves
                     if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
                         result.add(new Move(peice,Direction.LEFT));
@@ -187,7 +188,7 @@ public class PetesPike {
                     }
                 }
                 //Down
-                for (int j = row+1; j < this.rows; j++) {
+                for (int j = row+2; j < this.rows; j++) {
                     //checks if there is a peice to land against, and if so add it to the available moves
                     if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
                         result.add(new Move(peice,Direction.DOWN));
@@ -195,7 +196,7 @@ public class PetesPike {
                     }
                 }
                 //Right
-                for (int j = col+1; j < this.cols; j++) {
+                for (int j = col+2; j < this.cols; j++) {
                     //checks if there is a peice to land against, and if so add it to the available moves
                     if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
                         result.add(new Move(peice,Direction.RIGHT));
@@ -204,6 +205,18 @@ public class PetesPike {
                 }
             }
         
+        return result;
+    }
+
+    private List makePeicesList(){
+        List result = new ArrayList<Position>();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if(!board[i][j].equals("-")&&!board[i][j].equals("T")){
+                    result.add(new Position(i,j));
+                }
+            }
+        }
         return result;
     }
 
@@ -217,6 +230,10 @@ public class PetesPike {
             result+="\n";
         }
         return result;
+    }
+
+    public Boolean hasWon(){
+        return(pete.getRow()==mountainTop.getRow()&&pete.getCol()==mountainTop.getCol());
     }
 }
 

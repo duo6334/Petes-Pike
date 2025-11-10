@@ -16,4 +16,10 @@ public class Move {
     public Direction getDirection(){
         return this.direction;
     }
+
+    @Override 
+    public String toString(){
+        String result = "("+position+") "+direction;
+        return result;
+    }
 }

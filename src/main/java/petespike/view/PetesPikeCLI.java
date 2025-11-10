@@ -49,8 +49,8 @@ public class PetesPikeCLI {
      */
       public static void move(String[] parts, PetesPike game) throws PetesPikeException {
         try {
-            int row = Integer.parseInt(parts[1]);
-            int col = Integer.parseInt(parts[2]);
+            int row = Integer.parseInt(parts[1])-1;
+            int col = Integer.parseInt(parts[2])-1;
             Position pos = new Position(row, col);
             String dir = parts[3];
             Direction direction;
@@ -71,6 +71,7 @@ public class PetesPikeCLI {
 
             Move move = new Move(pos, direction);
             game.makeMove(move);
+            display(game);
 
         } catch (Exception e) {
             System.out.println("Usage: move <row> <col> <direction>");

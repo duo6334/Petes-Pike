@@ -100,14 +100,7 @@ public class PetesPike {
     }
 
 
-    1 
-    2 t
-    3 
-    4
-    5
-    6
-    7
-    8
+
     public void makeMove(Move move) throws PetesPikeException{
         String piece = getSymbolAt(move.getPosition());
         String blank = "-";

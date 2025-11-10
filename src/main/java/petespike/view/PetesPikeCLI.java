@@ -1,5 +1,6 @@
 package petespike.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import petespike.model.Direction;
@@ -106,7 +107,8 @@ public class PetesPikeCLI {
      */
 
       public static void hint(PetesPike game){
-         
+        List possibleMoves= game.getPossibleMoves();
+        System.out.println("Try: "+possibleMoves.remove(1));
       }
 
     /**

@@ -104,48 +104,49 @@ public class PetesPike {
     public void makeMove(Move move) throws PetesPikeException{
         String piece = getSymbolAt(move.getPosition());
         String blank = "-";
+        String mountaintop="T";
         if (move.getDirection() == Direction.UP){
             int i = (move.getPosition().getRow() - 1);
-            while(board[i][move.getPosition().getCol()].equals(blank)){
+            while(board[i][move.getPosition().getCol()].equals(blank)||board[i][move.getPosition().getCol()].equals(mountaintop)){
                 if (i == 0) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i--;
             }
-            board[i][move.getPosition().getCol()] = piece;
+            board[i+1][move.getPosition().getCol()] = piece;
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.DOWN){
             int i = (move.getPosition().getRow() + 1);
-            while(board[i][move.getPosition().getCol()].equals(blank)){
+            while(board[i][move.getPosition().getCol()].equals(blank)||board[i][move.getPosition().getCol()].equals(mountaintop)){
                 if (i > getRows()) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i++;
             }
-            board[i][move.getPosition().getCol()] = piece;
+            board[i-1][move.getPosition().getCol()] = piece;
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.LEFT){
             int i = (move.getPosition().getCol() - 1);
-            while(board[move.getPosition().getRow()][i].equals(blank)){
+            while(board[move.getPosition().getRow()][i].equals(blank)||board[i][move.getPosition().getCol()].equals(mountaintop)){
                 if (i == 0) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i--;
             }
-            board[move.getPosition().getRow()][i] = piece;
+            board[move.getPosition().getRow()][i+1] = piece;
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.RIGHT){
             int i = (move.getPosition().getCol() + 1);
-            while(board[move.getPosition().getRow()][i].equals(blank)){
+            while(board[move.getPosition().getRow()][i].equals(blank)||board[i][move.getPosition().getCol()].equals(mountaintop)){
                 if (i > getCols()) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i++;
             }
-            board[move.getPosition().getRow()][i] = piece;
+            board[move.getPosition().getRow()][i-1] = piece;
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         moveCount++;

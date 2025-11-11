@@ -190,7 +190,7 @@ public class PetesPike {
                 //Down
                 for (int j = row+2; j < this.rows; j++) {
                     //checks if there is a peice to land against, and if so add it to the available moves
-                    if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
+                    if(!board[j][col].equals("-")&&!board[j][col].equals("T")){
                         result.add(new Move(peice,Direction.DOWN));
                         break;
                     }

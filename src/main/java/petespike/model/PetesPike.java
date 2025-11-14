@@ -21,6 +21,7 @@ public class PetesPike {
     private Position pete;
     private List<Position> peices = new ArrayList<>();
     private String[] nextColor= new String[9];
+    private PetesPikeObserver observer;
 
 
     public PetesPike(String filename) throws PetesPikeException{

@@ -21,6 +21,7 @@ public class PetesPike {
     private Position pete;
     private List<Position> peices = new ArrayList<>();
     private String[] nextColor= new String[9];
+    private PetesPikeObserver observer;
 
 
     public PetesPike(String filename) throws PetesPikeException{
@@ -100,6 +101,11 @@ public class PetesPike {
     }
 
 
+    
+    
+    
+    
+    
 
     public void makeMove(Move move) throws PetesPikeException{
         String piece = getSymbolAt(move.getPosition());
@@ -208,8 +214,8 @@ public class PetesPike {
         return result;
     }
 
-    private List makePeicesList(){
-        List result = new ArrayList<Position>();
+    private List<Position> makePeicesList(){
+        List<Position> result = new ArrayList<>();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 if(!board[i][j].equals("-")&&!board[i][j].equals("T")){

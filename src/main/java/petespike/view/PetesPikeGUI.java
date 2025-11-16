@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import petespike.model.Move;
 import petespike.model.PetesPike;
@@ -102,6 +103,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         // this will show the state (labels ^) of the game  
         HBox gameStatus = new HBox();
         gameStatus.getChildren().addAll(newGame,movesLabel);
+
+        VBox wholeBoard = new VBox();
+
+        wholeBoard.getChildren().addAll(gameStatus,movementCtrl);
 
         Scene scene = new Scene(gameStatus);
         primaryStage.setTitle("Petes Pike");

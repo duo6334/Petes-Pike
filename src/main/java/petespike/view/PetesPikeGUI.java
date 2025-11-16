@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -56,6 +57,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         // resetBtn.setOnAction(e -> resetGame());
         // quitBtn.setOnAction(e -> Platform.exit());
         // hintButton.setOnAction(e -> showHint());
+
+        TextField fileTextBox = new TextField("enter your filename");
 
         // movement controls
         Button upBtn = new Button();
@@ -114,10 +117,11 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         gameStatus.getChildren().addAll(newGame,movesLabel);
 
         HBox topRow = new HBox();
-        
+        topRow.getChildren().addAll(resetBtn,fileTextBox,newBtn);
+
         VBox wholeBoard = new VBox();
 
-        wholeBoard.getChildren().addAll(movementCtrl,gameStatus);
+        wholeBoard.getChildren().addAll(topRow,movementCtrl,gameStatus);
 
         Scene scene = new Scene(wholeBoard);
         primaryStage.setScene(scene);

@@ -101,9 +101,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         // this will show the state (labels ^) of the game  
         HBox gameStatus = new HBox();
+        gameStatus.getChildren().addAll(newGame,movesLabel);
 
         Scene scene = new Scene(movementCtrl);
-        primaryStage.setTitle("Hello, World!");
+        primaryStage.setTitle("Petes Pike");
         primaryStage.setScene(scene);
         primaryStage.show();
 

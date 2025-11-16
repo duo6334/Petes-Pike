@@ -184,6 +184,9 @@ public class PetesPike {
             notifyObserver(from, to);
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
+        else{
+            throw new PetesPikeException("Direction not recognized");
+        }
         moveCount++;
     }
 

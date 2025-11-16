@@ -2,6 +2,7 @@ package petespike.view;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -36,8 +37,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     // size of the board max of 9
     private static final int MAX_SIZE = 9;
 
-    public void newGame(){
-        
+    public void NewGame(Stage primaryStage){
+
     }
 
     @Override
@@ -51,10 +52,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         Button quitBtn = new Button("Quit");
         hintButton = new Button("Hint");
 
-        newBtn.setOnAction(e -> newGame(primaryStage));
-        resetBtn.setOnAction(e -> resetGame());
-        quitBtn.setOnAction(e -> Platform.exit());
-        hintButton.setOnAction(e -> showHint());
+        // newBtn.setOnAction(e -> newGame(primaryStage));
+        // resetBtn.setOnAction(e -> resetGame());
+        // quitBtn.setOnAction(e -> Platform.exit());
+        // hintButton.setOnAction(e -> showHint());
 
         // movement controls
         Button upBtn = new Button();
@@ -100,9 +101,12 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         // this will show the state (labels ^) of the game  
         HBox gameStatus = new HBox();
+        gameStatus.getChildren().addAll(newGame,movesLabel);
 
-
-        
+        Scene scene = new Scene(gameStatus);
+        primaryStage.setTitle("Petes Pike");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
     }
 
@@ -110,6 +114,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     public void pieceMoved(Position from, Position to) {
         // TODO Auto-generated method stub
         
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
     
 

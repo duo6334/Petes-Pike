@@ -106,9 +106,9 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         VBox wholeBoard = new VBox();
 
-        wholeBoard.getChildren().addAll(gameStatus,movementCtrl);
+        //wholeBoard.getChildren().addAll(movementCtrl);
 
-        Scene scene = new Scene(gameStatus);
+        Scene scene = new Scene(movementCtrl);
         primaryStage.setTitle("Petes Pike");
         primaryStage.setScene(scene);
         primaryStage.show();

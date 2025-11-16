@@ -1,15 +1,17 @@
 package petespike.view;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+<<<<<<< HEAD
+=======
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+>>>>>>> 81e46a5e7004a01127c9bdf1ae6e0383024b43b0
 import javafx.stage.Stage;
 import petespike.model.Move;
 import petespike.model.PetesPike;
@@ -74,17 +76,23 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         ImageView upView = new ImageView(upArrow);
         upView.setFitWidth(50);
         upView.setFitHeight(30);
+        upView.setFitWidth(50);
+        upView.setFitHeight(30);
         upBtn.setGraphic(upView);
         ImageView downView = new ImageView(downArrow);
+        downView.setFitWidth(50);
+        downView.setFitHeight(30);
         downView.setFitWidth(50);
         downView.setFitHeight(30);
         downBtn.setGraphic(downView);
         ImageView leftView = new ImageView(leftArrow);
         leftView.setFitWidth(30);
         leftView.setFitHeight(30);
+        leftView.setFitHeight(30);
         leftBtn.setGraphic(leftView);
         ImageView rightView = new ImageView(rightArrow);
         rightView.setFitWidth(30);
+        rightView.setFitHeight(30);
         rightView.setFitHeight(30);
         rightBtn.setGraphic(rightView);
 
@@ -111,6 +119,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         HBox topRow = new HBox();
 
 
+<<<<<<< HEAD
+=======
         VBox wholeBoard = new VBox();
 
         wholeBoard.getChildren().addAll(movementCtrl,gameStatus);

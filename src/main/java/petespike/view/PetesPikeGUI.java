@@ -51,7 +51,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         Button quitBtn = new Button("Quit");
         hintButton = new Button("Hint");
 
-        newBtn.setOnAction(e -> NewGame(primaryStage));
+        newBtn.setOnAction(e -> newGame(primaryStage));
         resetBtn.setOnAction(e -> resetGame());
         quitBtn.setOnAction(e -> Platform.exit());
         hintButton.setOnAction(e -> showHint());

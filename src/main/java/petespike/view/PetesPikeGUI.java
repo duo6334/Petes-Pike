@@ -1,14 +1,12 @@
 package petespike.view;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import petespike.model.Move;
 import petespike.model.PetesPike;
@@ -93,6 +91,11 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         // right of middle row
         movementCtrl.add(rightBtn, 2, 1);
 
+        //GridPane board 
+        GridPane board = new GridPane();
+        for(int i = 0; i == )
+
+
 
         Label newGame = new Label("New Game!");
         Label validMove = new Label("Good Move!");
@@ -100,10 +103,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         Label winLabel = new Label("Congratulations! You Won!");
 
         // this will show the state (labels ^) of the game  
-        HBox gameStatus = new HBox();
-        gameStatus.getChildren().addAll(newGame,movesLabel);
+        //HBox gameStatus = new HBox();
+        //gameStatus.getChildren().addAll(newGame,movesLabel);
 
-        Scene scene = new Scene(gameStatus);
+        Scene scene = new Scene(movementCtrl);
         primaryStage.setTitle("Petes Pike");
         primaryStage.setScene(scene);
         primaryStage.show();

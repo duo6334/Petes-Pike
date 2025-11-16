@@ -4,9 +4,12 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import petespike.model.Move;
 import petespike.model.PetesPike;
@@ -21,7 +24,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     private GridPane boardGrid;
     private Button[][] cellButtons;      // up to 9x9
     private Label statusLabel;
-    private Label movesLabel;
+    private Label movesLabel = new Label("moves:0");
     private Button hintButton;
     private int rows = 0;
     private int cols = 0;
@@ -43,17 +46,20 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Pete's Pike");
 
+        // Board
+        GridPane board = new GridPane();
         
+
         // top controls
         Button newBtn = new Button("New Game");
         Button resetBtn = new Button("Reset");
-        Button quitBtn = new Button("Quit");
-        hintButton = new Button("Hint");
+        hintButton = new Button("Get Hint");
 
         // newBtn.setOnAction(e -> newGame(primaryStage));
-        // resetBtn.setOnAction(e -> resetGame());
-        // quitBtn.setOnAction(e -> Platform.exit());
+        // resetBtn.setOnAction(e -> resetGame())
         // hintButton.setOnAction(e -> showHint());
+
+        TextField fileTextBox = new TextField("enter your filename");
 
         // movement controls
         Button upBtn = new Button();
@@ -69,16 +75,26 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         // View arrows and attach to buttons
         ImageView upView = new ImageView(upArrow);
-        upView.setFitWidth(30);
+        upView.setFitWidth(50);
+        upView.setFitHeight(30);
+        upView.setFitWidth(50);
+        upView.setFitHeight(30);
         upBtn.setGraphic(upView);
         ImageView downView = new ImageView(downArrow);
-        downView.setFitWidth(30);
+        downView.setFitWidth(50);
+        downView.setFitHeight(30);
+        downView.setFitWidth(50);
+        downView.setFitHeight(30);
         downBtn.setGraphic(downView);
         ImageView leftView = new ImageView(leftArrow);
         leftView.setFitWidth(30);
+        leftView.setFitHeight(30);
+        leftView.setFitHeight(30);
         leftBtn.setGraphic(leftView);
         ImageView rightView = new ImageView(rightArrow);
         rightView.setFitWidth(30);
+        rightView.setFitHeight(30);
+        rightView.setFitHeight(30);
         rightBtn.setGraphic(rightView);
 
         GridPane movementCtrl = new GridPane();
@@ -91,23 +107,36 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         // right of middle row
         movementCtrl.add(rightBtn, 2, 1);
 
-        //GridPane board 
-        GridPane board = new GridPane();
-        for(int i = 0; i == )
 
-
+        
 
         Label newGame = new Label("New Game!");
+        newGame.setMinWidth(400);
         Label validMove = new Label("Good Move!");
+        validMove.setMinWidth(400);
         Label invalidMove = new Label("Illegal move: Piece will fall off mountain!");
+        invalidMove.setMinWidth(400);
         Label winLabel = new Label("Congratulations! You Won!");
+        winLabel.setMinWidth(400);
 
         // this will show the state (labels ^) of the game  
-        //HBox gameStatus = new HBox();
-        //gameStatus.getChildren().addAll(newGame,movesLabel);
+        HBox gameStatus = new HBox();
+        gameStatus.getChildren().addAll(invalidMove,movesLabel);
 
-        Scene scene = new Scene(movementCtrl);
-        primaryStage.setTitle("Petes Pike");
+        HBox topRow = new HBox();
+        topRow.getChildren().addAll(resetBtn,fileTextBox,newBtn);
+
+        VBox rightSide = new VBox();
+        rightSide.getChildren().addAll(movementCtrl,hintButton);
+
+        HBox midRow = new HBox();
+        midRow.getChildren().addAll(board,rightSide);
+
+        VBox wholeBoard = new VBox();
+
+        wholeBoard.getChildren().addAll(topRow,rightSide,gameStatus);
+
+        Scene scene = new Scene(wholeBoard);
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -115,8 +144,20 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
     @Override
     public void pieceMoved(Position from, Position to) {
-        // TODO Auto-generated method stub
         
+        
+    }
+
+    // Create the board grid
+    public GridPane makeBoard() {
+        GridPane board = new GridPane();
+        for(int i = 0; i == game.getRows(); i++){
+            for (int j = 0; j == game.getCols(); j++){
+                Label label = makeLabel(i,j);
+                board.add
+            }
+        }
+
     }
 
     public static void main(String[] args) {

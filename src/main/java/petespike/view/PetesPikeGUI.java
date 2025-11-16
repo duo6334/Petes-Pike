@@ -1,14 +1,12 @@
 package petespike.view;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import petespike.model.Move;
 import petespike.model.PetesPike;
@@ -71,16 +69,20 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         // View arrows and attach to buttons
         ImageView upView = new ImageView(upArrow);
-        upView.setFitWidth(30);
+        upView.setFitWidth(50);
+        upView.setFitHeight(30);
         upBtn.setGraphic(upView);
         ImageView downView = new ImageView(downArrow);
-        downView.setFitWidth(30);
+        downView.setFitWidth(50);
+        downView.setFitHeight(30);
         downBtn.setGraphic(downView);
         ImageView leftView = new ImageView(leftArrow);
         leftView.setFitWidth(30);
+        leftView.setFitHeight(30);
         leftBtn.setGraphic(leftView);
         ImageView rightView = new ImageView(rightArrow);
         rightView.setFitWidth(30);
+        rightView.setFitHeight(30);
         rightBtn.setGraphic(rightView);
 
         GridPane movementCtrl = new GridPane();
@@ -100,10 +102,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         Label winLabel = new Label("Congratulations! You Won!");
 
         // this will show the state (labels ^) of the game  
-        HBox gameStatus = new HBox();
-        gameStatus.getChildren().addAll(newGame,movesLabel);
+        // HBox gameStatus = new HBox();
+        // gameStatus.getChildren().addAll(newGame,movesLabel);
 
-        Scene scene = new Scene(gameStatus);
+        Scene scene = new Scene(movementCtrl);
         primaryStage.setTitle("Petes Pike");
         primaryStage.setScene(scene);
         primaryStage.show();

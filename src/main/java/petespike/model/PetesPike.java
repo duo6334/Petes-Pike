@@ -21,6 +21,7 @@ public class PetesPike {
     private Position pete;
     private List<Position> peices = new ArrayList<>();
     private String[] nextColor= new String[9];
+    private PetesPikeObserver observer;
 
 
     public PetesPike(String filename) throws PetesPikeException{
@@ -100,9 +101,33 @@ public class PetesPike {
     }
 
 
+    /**
+     * Registers an observer to be notified when wa piece has moved
+     * 
+     * @param observer The observer to notify when a piece is moved
+     */
+    public void registerObserver(PetesPikeObserver observer) {
+        this.observer = observer;
+    }    
+    
+    /**
+     * Notifies the oberver that a piece has moved
+     * 
+     * @param from The position a piece is moving from
+     * @param to The position a piece is moving to
+     */
+    private void notifyObserver(Position from, Position to) {
+        if (null != observer) {
+            observer.pieceMoved(from, to);
+        }
+    }
+    
+    
 
     public void makeMove(Move move) throws PetesPikeException{
         String piece = getSymbolAt(move.getPosition());
+        // initial position
+        Position from  = move.getPosition();
         String blank = "-";
         String mountaintop="T";
         if (move.getDirection() == Direction.UP){
@@ -113,7 +138,11 @@ public class PetesPike {
                 }
                 i--;
             }
+            // final position
+            Position to = new Position(i+1, move.getPosition().getCol());
             board[i+1][move.getPosition().getCol()] = piece;
+            // board has chnaged - notify
+            notifyObserver(from, to);
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.DOWN){
@@ -124,18 +153,22 @@ public class PetesPike {
                 }
                 i++;
             }
+            Position to = new Position(i-1, move.getPosition().getCol());
             board[i-1][move.getPosition().getCol()] = piece;
+            notifyObserver(from, to);
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.LEFT){
             int i = (move.getPosition().getCol() - 1);
-            while(board[move.getPosition().getRow()][i].equals(blank)||board[i][move.getPosition().getCol()].equals(mountaintop)){
+            while(board[move.getPosition().getRow()][i].equals(blank)||board[move.getPosition().getRow()][i].equals(mountaintop)){
                 if (i == 0) {
                     throw new PetesPikeException("Illegal move: piece will fall off mountain!");
                 }
                 i--;
             }
+            Position to = new Position(move.getPosition().getRow(), i+1);
             board[move.getPosition().getRow()][i+1] = piece;
+            notifyObserver(from, to);
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else if (move.getDirection() == Direction.RIGHT){
@@ -146,7 +179,9 @@ public class PetesPike {
                 }
                 i++;
             }
+            Position to = new Position(move.getPosition().getRow(), i-1);
             board[move.getPosition().getRow()][i-1] = piece;
+            notifyObserver(from, to);
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
         }
         else{
@@ -164,17 +199,18 @@ public class PetesPike {
     }
 
     public List<Move> getPossibleMoves(){
+        List<Position> tokens = makePeicesList();
         //creates the list to store moves
         List<Move> result = new ArrayList<>();
         //iterates through all peices we have
-        for(Position peice:peices){
+        for(Position peice:tokens){
             //stores the row and column for each peice
             int row = peice.getRow();
             int col = peice.getCol();
             
             //looks at each direction
                 //up
-                for (int j = row-1; j >= 0; j--) {
+                for (int j = row-2; j >= 0; j--) {
                     //checks if there is a peice to land against, and if so add it to the available moves
                     if(!board[j][col].equals("-")&&!board[j][col].equals("T")){ 
                         result.add(new Move(peice,Direction.UP));
@@ -182,7 +218,7 @@ public class PetesPike {
                     }
                 }
                 //Left
-                for (int j = col-1; j >= 0; j--) {
+                for (int j = col-2; j >= 0; j--) {
                     //checks if there is a peice to land against, and if so add it to the available moves
                     if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
                         result.add(new Move(peice,Direction.LEFT));
@@ -190,15 +226,15 @@ public class PetesPike {
                     }
                 }
                 //Down
-                for (int j = row+1; j < this.rows; j++) {
+                for (int j = row+2; j < this.rows; j++) {
                     //checks if there is a peice to land against, and if so add it to the available moves
-                    if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
+                    if(!board[j][col].equals("-")&&!board[j][col].equals("T")){
                         result.add(new Move(peice,Direction.DOWN));
                         break;
                     }
                 }
                 //Right
-                for (int j = col+1; j < this.cols; j++) {
+                for (int j = col+2; j < this.cols; j++) {
                     //checks if there is a peice to land against, and if so add it to the available moves
                     if(!board[row][j].equals("-")&&!board[row][j].equals("T")){
                         result.add(new Move(peice,Direction.RIGHT));
@@ -207,6 +243,18 @@ public class PetesPike {
                 }
             }
         
+        return result;
+    }
+
+    private List<Position> makePeicesList(){
+        List<Position> result = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if(!board[i][j].equals("-")&&!board[i][j].equals("T")){
+                    result.add(new Position(i,j));
+                }
+            }
+        }
         return result;
     }
 
@@ -220,6 +268,10 @@ public class PetesPike {
             result+="\n";
         }
         return result;
+    }
+
+    public Boolean hasWon(){
+        return(pete.getRow()==mountainTop.getRow()&&pete.getCol()==mountainTop.getCol());
     }
 }
 

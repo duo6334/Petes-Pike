@@ -139,6 +139,11 @@ public class PetesPikeCLI {
         display(game);
         boolean quit = false;
         while (quit == false) {
+            if(game.hasWon()){
+              System.out.println("Congratulations, you have finished the game!");
+              quit=true;
+              continue;
+            }
             System.out.print("Command: ");
             String command = in.nextLine();
             String[] splitCommand = command.split(" "); // for "move" and "new" input

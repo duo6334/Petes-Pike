@@ -24,7 +24,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     private GridPane boardGrid;
     private Button[][] cellButtons;      // up to 9x9
     private Label statusLabel;
-    private Label movesLabel;
+    private Label movesLabel = new Label("moves:0");
     private Button hintButton;
     private int rows = 0;
     private int cols = 0;
@@ -72,16 +72,20 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         // View arrows and attach to buttons
         ImageView upView = new ImageView(upArrow);
-        upView.setFitWidth(30);
+        upView.setFitWidth(50);
+        upView.setFitHeight(30);
         upBtn.setGraphic(upView);
         ImageView downView = new ImageView(downArrow);
-        downView.setFitWidth(30);
+        downView.setFitWidth(50);
+        downView.setFitHeight(30);
         downBtn.setGraphic(downView);
         ImageView leftView = new ImageView(leftArrow);
         leftView.setFitWidth(30);
+        leftView.setFitHeight(30);
         leftBtn.setGraphic(leftView);
         ImageView rightView = new ImageView(rightArrow);
         rightView.setFitWidth(30);
+        rightView.setFitHeight(30);
         rightBtn.setGraphic(rightView);
 
         GridPane movementCtrl = new GridPane();
@@ -104,12 +108,14 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         HBox gameStatus = new HBox();
         gameStatus.getChildren().addAll(newGame,movesLabel);
 
+        HBox topRow = new HBox();
+
+
         VBox wholeBoard = new VBox();
 
-        //wholeBoard.getChildren().addAll(movementCtrl);
+        wholeBoard.getChildren().addAll(movementCtrl,gameStatus);
 
-        Scene scene = new Scene(movementCtrl);
-        primaryStage.setTitle("Petes Pike");
+        Scene scene = new Scene(wholeBoard);
         primaryStage.setScene(scene);
         primaryStage.show();
 

@@ -27,6 +27,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     private int rows = 0;
     private int cols = 0;
 
+
     // selection / hint state
     private Position selected = null;
     private Move hintMove = null;
@@ -34,6 +35,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
     // size of the board max of 9
     private static final int MAX_SIZE = 9;
+
+    public void newGame(){
+        
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {

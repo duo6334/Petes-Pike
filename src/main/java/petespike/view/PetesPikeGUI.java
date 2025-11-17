@@ -55,7 +55,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         primaryStage.setTitle("Pete's Pike");
 
         // Board
-        GridPane board = makeBoard();
+        GridPane board = new GridPane();
         
 
         // top controls
@@ -142,8 +142,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         wholeBoard.getChildren().addAll(topRow,rightSide,gameStatus);
 
-        hintButton.setOnAction(e -> showHint(gameStatus,rightSide));
-        newBtn.setOnAction(e -> newGame(midRow,fileTextBox,gameStatus));
+        //hintButton.setOnAction(e -> showHint(gameStatus,rightSide));
+        //newBtn.setOnAction(e -> newGame(midRow,fileTextBox,gameStatus));
 
         Scene scene = new Scene(wholeBoard);
         primaryStage.setScene(scene);

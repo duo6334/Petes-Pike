@@ -11,14 +11,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import petespike.model.Direction;
 import petespike.model.Move;
 import petespike.model.PetesPike;
 import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeObserver;
 import petespike.model.Position;
-import petespike.model.Direction;
 
 public class PetesPikeGUI extends Application implements PetesPikeObserver{
     private PetesPike game;
@@ -125,19 +126,24 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         // this will show the state (labels ^) of the game  
         HBox gameStatus = new HBox();
         gameStatus.getChildren().addAll(invalidMove,movesLabel);
+        HBox.setHgrow(gameStatus, Priority.ALWAYS);
 
         HBox topRow = new HBox();
         topRow.getChildren().addAll(resetBtn,fileTextBox,newBtn);
+        HBox.setHgrow(topRow, Priority.ALWAYS);
 
         VBox rightSide = new VBox();
         rightSide.getChildren().addAll(movementCtrl,hintButton);
+        VBox.setVgrow(rightSide, Priority.ALWAYS);
 
         HBox midRow = new HBox();
         midRow.getChildren().addAll(board,rightSide);
+        HBox.setHgrow(midRow, Priority.ALWAYS);
 
         VBox wholeBoard = new VBox();
+        wholeBoard.getChildren().addAll(topRow,midRow,gameStatus);
+        VBox.setVgrow(wholeBoard, Priority.ALWAYS);
 
-        wholeBoard.getChildren().addAll(topRow,rightSide,gameStatus);
 
         //hintButton.setOnAction(e -> showHint(gameStatus,rightSide));
         //newBtn.setOnAction(e -> newGame(midRow,fileTextBox,gameStatus));
@@ -161,7 +167,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         resetBtn.setOnAction(e -> {
             // Reset by reloading the last filename
-            if (currentFilename != null && currentFilename.isEmpty()) {
+            if (currentFilename != null && !currentFilename.isEmpty()) {
                 try {
                     this.game = new PetesPike(currentFilename);
                     boardGrid = makeBoard();
@@ -240,7 +246,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         
         if(this.game == null){
             for(int i = 0; i < 5; i++){
-                for (int j = 0; j == 5; j++){
+                for (int j = 0; j < 5; j++){
                     Label label = new Label("placeholder");
                     board.add(label, i, j);
                  }

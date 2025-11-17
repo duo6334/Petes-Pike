@@ -19,6 +19,7 @@ import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeObserver;
 import petespike.model.Position;
+import petespike.model.Direction;
 
 public class PetesPikeGUI extends Application implements PetesPikeObserver{
     private PetesPike game;
@@ -71,8 +72,6 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         Button downBtn = new Button();
         Button leftBtn = new Button();
         Button rightBtn = new Button();
-
-        // Load arrows
         
 
         // View arrows and attach to buttons
@@ -179,7 +178,15 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         if (possibleMoves.size()>0){
             Move possibleMove = possibleMoves.get(0);
             HBox move = new HBox();
-            move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(upArrow));
+            if(possibleMove.getDirection()==Direction.UP){
+                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(upArrow));
+            }else if(possibleMove.getDirection()==Direction.DOWN){
+                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(downArrow));
+            }else if(possibleMove.getDirection()==Direction.LEFT){
+                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(leftArrow));
+            }else{
+                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(rightArrow));
+            }
             rightSide.getChildren().set(2,move);
             gameStatus.getChildren().set(0,new Label(""));
             }

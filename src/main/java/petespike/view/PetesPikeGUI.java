@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import petespike.model.Move;
 import petespike.model.PetesPike;
 import petespike.model.PetesPikeException;
+import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeObserver;
 import petespike.model.Position;
 
@@ -54,7 +55,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         primaryStage.setTitle("Pete's Pike");
 
         // Board
-        GridPane board = new GridPane();
+        GridPane board = makeBoard();
         
 
         // top controls
@@ -169,11 +170,11 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         GridPane board = new GridPane();
         for(int i = 0; i == game.getRows(); i++){
             for (int j = 0; j == game.getCols(); j++){
-                Label label = makeLabel(i,j);
-                board.add
+                Label label = new Label("placeholder");
+                board.add(label, i, j);
             }
         }
-
+        return board;
     }
 
     public void showHint(HBox gameStatus,VBox rightSide){
@@ -188,7 +189,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         else{gameStatus.getChildren().set(0,new Label("No possible moves"));}
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws PetesPikeException {
+        //PetesPike test = new PetesPike("data\\petes_pike_5_5_4_0.txt");
         launch(args);
     }
     

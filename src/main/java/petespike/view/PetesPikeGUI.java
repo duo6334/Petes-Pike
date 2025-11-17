@@ -1,5 +1,7 @@
 package petespike.view;
 
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import petespike.model.Move;
 import petespike.model.PetesPike;
+import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeObserver;
 import petespike.model.Position;
 
@@ -28,6 +31,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     private Button hintButton;
     private int rows = 0;
     private int cols = 0;
+    private Image upArrow = new Image("file:data/25637.png");
+    private Image downArrow = new Image("file:data/61932.png");
+    private Image leftArrow = new Image("file:data/959160.png");
+    private Image rightArrow = new Image("file:data/right-arrow.png");
 
 
     // selection / hint state
@@ -57,9 +64,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         // newBtn.setOnAction(e -> newGame(primaryStage));
         // resetBtn.setOnAction(e -> resetGame())
-        // hintButton.setOnAction(e -> showHint());
+        
 
-        TextField fileTextBox = new TextField("enter your filename");
+        TextField fileTextBox = new TextField();
+        fileTextBox.setPromptText("Enter file");
 
         // movement controls
         Button upBtn = new Button();
@@ -68,10 +76,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         Button rightBtn = new Button();
 
         // Load arrows
-        Image upArrow = new Image("file:data/25637.png");
-        Image downArrow = new Image("file:data/61932.png");
-        Image leftArrow = new Image("file:data/959160.png");
-        Image rightArrow = new Image("file:data/right-arrow.png");
+        
 
         // View arrows and attach to buttons
         ImageView upView = new ImageView(upArrow);
@@ -136,6 +141,9 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         wholeBoard.getChildren().addAll(topRow,rightSide,gameStatus);
 
+        hintButton.setOnAction(e -> showHint(gameStatus,rightSide));
+        newBtn.setOnAction(e -> newGame(midRow,fileTextBox,gameStatus));
+
         Scene scene = new Scene(wholeBoard);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -148,6 +156,14 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         
     }
 
+    public void newGame(HBox middleRow, TextField fileText, HBox gameStatus){
+        try{
+        this.game = new PetesPike(fileText.getText());
+        }catch(PetesPikeException e){
+            gameStatus.getChildren().set(0,new Label(e.getMessage()));
+        }
+    }
+
     // Create the board grid
     public GridPane makeBoard() {
         GridPane board = new GridPane();
@@ -158,6 +174,18 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
             }
         }
 
+    }
+
+    public void showHint(HBox gameStatus,VBox rightSide){
+        List<Move> possibleMoves = game.getPossibleMoves();
+        if (possibleMoves.size()>0){
+            Move possibleMove = possibleMoves.get(0);
+            HBox move = new HBox();
+            move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(upArrow));
+            rightSide.getChildren().set(2,move);
+            gameStatus.getChildren().set(0,new Label(""));
+            }
+        else{gameStatus.getChildren().set(0,new Label("No possible moves"));}
     }
 
     public static void main(String[] args) {

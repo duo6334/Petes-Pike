@@ -9,9 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import petespike.model.Direction;
@@ -21,9 +21,9 @@ import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeObserver;
 import petespike.model.Position;
 
-public class PetesPikeGUI extends Application implements PetesPikeObserver{
+public class PetesPikeGUI extends Application implements PetesPikeObserver {
     private PetesPike game;
-    private String currentFilename = ""; // last used filename (used by reset)
+    private String currentFilename = "data/petes_pike_5_5_4_1.txt"; // last used filename (used by reset)
 
     // UI
     private GridPane boardGrid;
@@ -47,6 +47,9 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     // size of the board max of 9
     private static final int MAX_SIZE = 9;
 
+    // public PetesPike board = new PetesPike(currentFilename);
+
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Pete's Pike");
@@ -57,8 +60,11 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         // top controls
         Button newBtn = new Button("New Game");
+        newBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Button resetBtn = new Button("Reset");
-        hintButton = new Button("Get Hint");
+        resetBtn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        Button hintButton = new Button("Get Hint");
+        hintButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // newBtn.setOnAction(e -> newGame(primaryStage));
         // resetBtn.setOnAction(e -> resetGame())
@@ -67,6 +73,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
         TextField fileTextBox = new TextField();
         fileTextBox.setPromptText("Enter file");
+        fileTextBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // movement controls
         Button upBtn = new Button();
@@ -110,39 +117,43 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         movementCtrl.add(rightBtn, 2, 1);
 
         // status labels
-        statusLabel = new Label(""); // used by pieceMoved
+        Label statusLabel = new Label(""); // used by pieceMoved
         statusLabel.setMinWidth(200);
         
 
         Label newGame = new Label("New Game!");
-        newGame.setMinWidth(400);
+        // newGame.setMinWidth(400);
+        newGame.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Label validMove = new Label("Good Move!");
-        validMove.setMinWidth(400);
+        // validMove.setMinWidth(400);
+        validMove.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Label invalidMove = new Label("Illegal move: Piece will fall off mountain!");
-        invalidMove.setMinWidth(400);
+        // invalidMove.setMinWidth(400);
+        invalidMove.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Label winLabel = new Label("Congratulations! You Won!");
-        winLabel.setMinWidth(400);
+        // winLabel.setMinWidth(400);
+        winLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // this will show the state (labels ^) of the game  
         HBox gameStatus = new HBox();
         gameStatus.getChildren().addAll(invalidMove,movesLabel);
-        HBox.setHgrow(gameStatus, Priority.ALWAYS);
 
         HBox topRow = new HBox();
         topRow.getChildren().addAll(resetBtn,fileTextBox,newBtn);
-        HBox.setHgrow(topRow, Priority.ALWAYS);
 
         VBox rightSide = new VBox();
         rightSide.getChildren().addAll(movementCtrl,hintButton);
-        VBox.setVgrow(rightSide, Priority.ALWAYS);
 
         HBox midRow = new HBox();
         midRow.getChildren().addAll(board,rightSide);
-        HBox.setHgrow(midRow, Priority.ALWAYS);
 
         VBox wholeBoard = new VBox();
         wholeBoard.getChildren().addAll(topRow,midRow,gameStatus);
-        VBox.setVgrow(wholeBoard, Priority.ALWAYS);
+        
+        BorderPane wholeWindow = new BorderPane();
+        wholeWindow.setTop(topRow);
+        wholeWindow.setCenter(midRow);
+        wholeWindow.setBottom(gameStatus);
 
 
         //hintButton.setOnAction(e -> showHint(gameStatus,rightSide));
@@ -193,7 +204,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
 
 
 
-        Scene scene = new Scene(wholeBoard);
+        Scene scene = new Scene(wholeWindow);
         primaryStage.setScene(scene);
         primaryStage.show();
 

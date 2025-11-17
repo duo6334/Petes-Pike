@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import petespike.model.Direction;
 import petespike.model.Move;
@@ -74,6 +75,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         TextField fileTextBox = new TextField();
         fileTextBox.setPromptText("Enter file");
         fileTextBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        fileTextBox.setMinWidth(300);
 
         // movement controls
         Button upBtn = new Button();
@@ -122,16 +124,16 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         
 
         Label newGame = new Label("New Game!");
-        // newGame.setMinWidth(400);
+        newGame.setMinWidth(370);
         newGame.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Label validMove = new Label("Good Move!");
-        // validMove.setMinWidth(400);
+        validMove.setMinWidth(370);
         validMove.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Label invalidMove = new Label("Illegal move: Piece will fall off mountain!");
-        // invalidMove.setMinWidth(400);
+        invalidMove.setMinWidth(370);
         invalidMove.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         Label winLabel = new Label("Congratulations! You Won!");
-        // winLabel.setMinWidth(400);
+        winLabel.setMinWidth(370);
         winLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         // this will show the state (labels ^) of the game  
@@ -245,7 +247,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
     public void newGame(HBox middleRow, TextField fileText, HBox gameStatus){
         try{
         this.game = new PetesPike(fileText.getText());
-        makeBoard();
+        middleRow.getChildren().set(0,makeBoard());
         }catch(PetesPikeException e){
             gameStatus.getChildren().set(0,new Label(e.getMessage()));
         }
@@ -258,16 +260,38 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         if(this.game == null){
             for(int i = 0; i < 5; i++){
                 for (int j = 0; j < 5; j++){
-                    Label label = new Label("placeholder");
-                    board.add(label, i, j);
+                    Button square = new Button("");
+                    square.setMinWidth(50);
+                    square.setMinHeight(50);
+                    board.add(square, i, j);
                  }
              }
         }
         else {
             for(int i = 0; i < game.getRows(); i++){
-                for (int j = 0; j == game.getCols(); j++){
-                    Label label = new Label("placeholder");
-                    board.add(label, i, j);
+                for (int j = 0; j < game.getCols(); j++){
+                    if(game.getSymbolAt(new Position(i, j)).equals("-")){
+                        Button square = new Button("");
+                        square.setMinWidth(30);
+                        square.setMinHeight(30);
+                        board.add(square, j, i);
+                    }else if(game.getSymbolAt(new Position(i, j)).equals("\u001b[38;5;220mP\u001b[0m")){
+                        Button square = new Button("P");
+                        square.setTextFill(Color.GOLD);
+                        square.setMinWidth(30);
+                        square.setMinHeight(30);
+                        board.add(square, j, i);
+                    }else if(game.getSymbolAt(new Position(i, j)).equals("T")){
+                        Button square = new Button("T");
+                        square.setMinWidth(30);
+                        square.setMinHeight(30);
+                        board.add(square, j, i);
+                    }else{
+                        Button square = new Button("G");
+                        square.setMinWidth(30);
+                        square.setMinHeight(30);
+                        board.add(square, j, i);
+                    }
                 }
             }
         }
@@ -285,13 +309,25 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
             hintMove = possibleMove;//storing last
             HBox move = new HBox();
             if(possibleMove.getDirection()==Direction.UP){
-                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(upArrow));
+                ImageView up = new ImageView(upArrow);
+                up.setFitWidth(20);
+                up.setFitHeight(20);
+                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),up);
             }else if(possibleMove.getDirection()==Direction.DOWN){
-                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(downArrow));
+                ImageView down = new ImageView(downArrow);
+                down.setFitWidth(20);
+                down.setFitHeight(20);
+                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),down);
             }else if(possibleMove.getDirection()==Direction.LEFT){
-                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(leftArrow));
+                ImageView left = new ImageView(leftArrow);
+                left.setFitWidth(20);
+                left.setFitHeight(20);
+                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),left);
             }else{
-                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),new ImageView(rightArrow));
+                ImageView right = new ImageView(rightArrow);
+                right.setFitWidth(20);
+                right.setFitHeight(20);
+                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),right);
             }
 
             if (rightSide.getChildren().size() > 2) {

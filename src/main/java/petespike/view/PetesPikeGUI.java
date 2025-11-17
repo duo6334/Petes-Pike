@@ -3,6 +3,7 @@ package petespike.view;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,8 +25,12 @@ import petespike.model.Position;
 
 public class PetesPikeGUI extends Application implements PetesPikeObserver {
     private PetesPike game;
-    private String currentFilename = "data/petes_pike_5_5_4_1.txt"; // last used filename (used by reset)
-
+    private String currentFilename = "data/petes_pike_5_5_4_0.txt"; // last used filename (used by reset)
+    private final String[] list_of_files = {"data/petes_pike_5_5_2_0.txt", "data/petes_pike_5_5_4_0.txt",
+                                     "data/petes_pike_5_5_4_1.txt", "data/petes_pike_5_5_5_0.txt",
+                                      "data/petes_pike_5_7_4_0.txt", "data/petes_pike_9_9_9_0.txt"};
+    private int list_index = 0;
+        
     // UI
     private GridPane boardGrid;
     private Button[][] cellButtons;      // up to 9x9
@@ -72,10 +77,25 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
 
         
 
-        TextField fileTextBox = new TextField();
-        fileTextBox.setPromptText("Enter file");
+        TextField fileTextBox = new TextField("Enter file: ");
         fileTextBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         fileTextBox.setMinWidth(300);
+        fileTextBox.setOnAction((ActionEvent event) -> {
+            String filename = fileTextBox.getText();
+            
+            try {
+                game = new PetesPike(filename);
+                setCurrentFilename(filename);
+                // update row/col and grid
+                board.getChildren().clear();
+                board.getChildren().addAll(boardGrid.getChildren());
+                // reset moves
+                movesLabel.setText("moves:0");
+                statusLabel.setText("New game loaded.");
+            } catch (PetesPikeException e) {
+                statusLabel.setText("Error: " + e.getMessage());
+            }
+        });
 
         // movement controls
         Button upBtn = new Button();
@@ -136,6 +156,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         winLabel.setMinWidth(370);
         winLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+
         // this will show the state (labels ^) of the game  
         HBox gameStatus = new HBox();
         gameStatus.getChildren().addAll(invalidMove,movesLabel);
@@ -163,33 +184,32 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
 
         // Button actions
         newBtn.setOnAction(e -> {
-            // Save the filename and create new game
-            currentFilename = fileTextBox.getText();
-            try {
-                this.game = new PetesPike(currentFilename);
-                // update row/col and grid
-                boardGrid = makeBoard();
-                midRow.getChildren().set(0, boardGrid); // replace center with the new boardGrid
-                // reset status/moves
-                movesLabel.setText("moves:0");
-                statusLabel.setText("New game loaded.");
-            } catch (PetesPikeException el) {
-                statusLabel.setText("Error: " + el.getMessage());
-            }
+                try {
+                    this.game = new PetesPike(list_of_files[list_index]);
+                    boardGrid = makeBoard();
+                    midRow.getChildren().set(0, boardGrid);
+                    movesLabel.setText("moves:0");
+                    statusLabel.setText("New Game.");
+                    if ( list_index == 5) {
+                        setListIndex();
+                    }
+                    list_index++;
+                } catch (PetesPikeException ex) {
+                    statusLabel.setText("Error: " + ex.getMessage());
+                }
         });
 
         resetBtn.setOnAction(e -> {
             // Reset by reloading the last filename
             if (currentFilename != null && !currentFilename.isEmpty()) {
-                try {
-                    this.game = new PetesPike(currentFilename);
+                // try {
+                    // this.game = new PetesPike(currentFilename);
                     boardGrid = makeBoard();
-                    midRow.getChildren().set(0, boardGrid);
+                    midRow.getChildren().set(list_index, boardGrid);
                     movesLabel.setText("moves:0");
                     statusLabel.setText("Game reset.");
-                } catch (PetesPikeException ex) {
-                    statusLabel.setText("Error: " + ex.getMessage());
-                }
+                // } catch (PetesPikeException ex) {
+                // }
             } else {
                 statusLabel.setText("No filename to reset to. Use New Game first.");
             }
@@ -338,6 +358,14 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
             gameStatus.getChildren().set(0,new Label(""));
             }else{gameStatus.getChildren().set(0,new Label("No possible moves"));}
     }
+
+    public void setCurrentFilename(String filename){
+        this.currentFilename = "file:" + filename;
+    }
+    public void setListIndex(){
+        this.list_index = 0;
+    }
+    
 
     public static void main(String[] args) throws PetesPikeException {
         //PetesPike test = new PetesPike("data\\petes_pike_5_5_4_0.txt");

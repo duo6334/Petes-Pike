@@ -22,8 +22,10 @@ import petespike.model.PetesPike;
 import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeObserver;
 import petespike.model.Position;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 
-public class PetesPikeGUI extends Application implements PetesPikeObserver {
+public class PetesPikeGUI extends Application implements PetesPikeObserver, EventHandler<ActionEvent> {
     private PetesPike game;
     private String currentFilename = "data/petes_pike_5_5_4_0.txt"; // last used filename (used by reset)
     private final String[] list_of_files = {"data/petes_pike_5_5_2_0.txt", "data/petes_pike_5_5_4_0.txt",
@@ -127,6 +129,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         rightView.setFitHeight(30);
         rightView.setFitHeight(30);
         rightBtn.setGraphic(rightView);
+
+        //button event handing
 
         GridPane movementCtrl = new GridPane();
         // middle of top row

@@ -46,10 +46,6 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     // size of the board max of 9
     private static final int MAX_SIZE = 9;
 
-    public void NewGame(Stage primaryStage){
-        
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Pete's Pike");
@@ -160,6 +156,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     public void newGame(HBox middleRow, TextField fileText, HBox gameStatus){
         try{
         this.game = new PetesPike(fileText.getText());
+        makeBoard();
         }catch(PetesPikeException e){
             gameStatus.getChildren().set(0,new Label(e.getMessage()));
         }

@@ -40,7 +40,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     private static final int MAX_SIZE = 9;
 
     public void NewGame(Stage primaryStage){
-
+        
     }
 
     @Override

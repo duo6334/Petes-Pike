@@ -52,7 +52,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
         primaryStage.setTitle("Pete's Pike");
 
         // Board
-        GridPane board = new GridPane();
+        GridPane board = makeBoard();
         
 
         // top controls

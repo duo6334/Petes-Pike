@@ -165,10 +165,20 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver{
     // Create the board grid
     public GridPane makeBoard() {
         GridPane board = new GridPane();
-        for(int i = 0; i == game.getRows(); i++){
-            for (int j = 0; j == game.getCols(); j++){
-                Label label = new Label("placeholder");
-                board.add(label, i, j);
+        if(this.game == null){
+            for(int i = 0; i == 5; i++){
+                for (int j = 0; j == 5; j++){
+                    Label label = new Label("placeholder");
+                    board.add(label, i, j);
+                }
+            }
+        }
+        else {
+            for(int i = 0; i == game.getRows(); i++){
+                for (int j = 0; j == game.getCols(); j++){
+                    Label label = new Label("placeholder");
+                    board.add(label, i, j);
+                }
             }
         }
         return board;

@@ -35,7 +35,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
     private GridPane boardGrid;
     private Button[][] cellButtons;      // up to 9x9
     private Label statusLabel;
-    private Label movesLabel = new Label("moves:0");
+    private Label movesLabel = new Label("moves: ");
     private Button hintButton;
     private int rows = 0;
     private int cols = 0;

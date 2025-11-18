@@ -35,7 +35,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
     private GridPane boardGrid;
     private Button[][] cellButtons;      // up to 9x9
     private Label statusLabel;
-    private Label movesLabel = new Label("moves:0");
+    private Label movesLabel = new Label("moves: ");
     private Button hintButton;
     private int rows = 0;
     private int cols = 0;
@@ -165,7 +165,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
 
         // this will show the state (labels ^) of the game  
         HBox gameStatus = new HBox();
-        gameStatus.getChildren().addAll(invalidMove,movesLabel);
+        gameStatus.getChildren().addAll(statusLabel,movesLabel);
 
         HBox topRow = new HBox();
         topRow.getChildren().addAll(resetBtn,fileTextBox,newBtn);
@@ -222,7 +222,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
 
         resetBtn.setOnAction(e -> {
             // Reset by reloading the last filename
-            if (currentFilename != null && !currentFilename.isEmpty()) {
+            
                 // try {
                     // this.game = new PetesPike(currentFilename);
                     boardGrid = makeBoard();
@@ -231,18 +231,17 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                     statusLabel.setText("Game reset.");
                 // } catch (PetesPikeException ex) {
                 // }
-            } else {
-                statusLabel.setText("No filename to reset to. Use New Game first.");
-            }
+            
         });
 
         hintButton.setOnAction(e -> {
             // show a hint on the right side
             if (game == null) {
                 statusLabel.setText("Load a game first to get a hint.");
-                return;
+                // return;
             }
-            showHint(gameStatus, rightSide);
+            statusLabel.setText(" " + showHint());
+
         });
 
         upBtn.setOnMousePressed(e -> {
@@ -257,6 +256,12 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
+<<<<<<< HEAD
+=======
+                pieceMoved(position, game.getPosition());
+
+                
+>>>>>>> da5075321f1dbb6a9f26174080eb5b0a39753ea6
             }
             position = null; 
             direction = null;
@@ -275,6 +280,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
+                pieceMoved(position, game.getPosition());
+
                 
             }
             position = null; 
@@ -294,7 +301,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
-                
+                pieceMoved(position, game.getPosition());
             }
             position = null; 
             direction = null;
@@ -313,6 +320,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
+                pieceMoved(position, game.getPosition());
             }
             position = null; 
             direction = null;
@@ -427,14 +435,14 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         return board;
     }
 
-    public void showHint(HBox gameStatus,VBox rightSide){
-        if (game == null) {
-            gameStatus.getChildren().set(0, new Label("Load a game first"));
-            return;
-        }
+    public Move showHint(){
+
         List<Move> possibleMoves = game.getPossibleMoves();
-        if (possibleMoves.size()>0){
-            Move possibleMove = possibleMoves.get(0);
+        Move retVal = null;
+        if (!possibleMoves.isEmpty()){
+            Move possibleMove = possibleMoves.remove(0);
+            retVal = possibleMove;
+
             hintMove = possibleMove;//storing last
             HBox move = new HBox();
             if(possibleMove.getDirection()==Direction.UP){
@@ -452,20 +460,22 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 left.setFitWidth(20);
                 left.setFitHeight(20);
                 move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),left);
-            }else{
-                ImageView right = new ImageView(rightArrow);
-                right.setFitWidth(20);
-                right.setFitHeight(20);
-                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),right);
             }
+            ImageView right = new ImageView(rightArrow);
+            right.setFitWidth(20);
+            right.setFitHeight(20);
+            move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),right);
+            return retVal;
+            }
+        return null;
 
-            if (rightSide.getChildren().size() > 2) {
-                rightSide.getChildren().set(2,move);
-            }else {
-                rightSide.getChildren().add(move);
-            }
-            gameStatus.getChildren().set(0,new Label(""));
-            }else{gameStatus.getChildren().set(0,new Label("No possible moves"));}
+    //         if (rightSide.getChildren().size() > 2) {
+    //             rightSide.getChildren().set(2,move);
+    //         }else {
+    //             rightSide.getChildren().add(move);
+    //         }
+    //         gameStatus.getChildren().set(0,new Label(""));
+    //         }else{gameStatus.getChildren().set(0,new Label("No possible moves"));}
     }
 
     public void setCurrentFilename(String filename){

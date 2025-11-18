@@ -260,12 +260,6 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
-<<<<<<< HEAD
-=======
-                pieceMoved(position, game.getPosition());
-
-                
->>>>>>> da5075321f1dbb6a9f26174080eb5b0a39753ea6
             }
             position = null; 
             direction = null;

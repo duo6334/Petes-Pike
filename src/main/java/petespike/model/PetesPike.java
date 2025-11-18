@@ -284,7 +284,7 @@ public class PetesPike {
     }
 
     public Boolean hasWon(){
-        return(pete.getRow()==mountainTop.getRow()&&pete.getCol()==mountainTop.getCol());
+        return(pete.getRow()==mountainTop.getRow() && pete.getCol()==mountainTop.getCol());
     }
 }
 

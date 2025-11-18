@@ -22,10 +22,11 @@ import petespike.model.PetesPike;
 import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeObserver;
 import petespike.model.Position;
+import petespike.model.Direction;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 
-public class PetesPikeGUI extends Application implements PetesPikeObserver, EventHandler<ActionEvent> {
+public class PetesPikeGUI extends Application implements PetesPikeObserver {
     private PetesPike game;
     private String currentFilename = "data/petes_pike_5_5_4_0.txt"; // last used filename (used by reset)
     private final String[] list_of_files = {"data/petes_pike_5_5_2_0.txt", "data/petes_pike_5_5_4_0.txt",
@@ -54,6 +55,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver, Even
 
     // size of the board max of 9
     private static final int MAX_SIZE = 9;
+
+    //move state
+    private Position position = null;
+    private Direction direction = null;
 
     // public PetesPike board = new PetesPike(currentFilename);
 
@@ -228,6 +233,73 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver, Even
             showHint(gameStatus, rightSide);
         });
 
+        upBtn.setOnMousePressed(e -> {
+            direction = Direction.UP;
+            if(direction != null && position != null){
+                Move move = new Move(position, direction);
+                try {
+                    game.makeMove(move);
+                    updateBoard();
+                } catch (PetesPikeException e1) {
+                     // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                
+            }
+            position = null; 
+            direction = null;
+        });
+
+        downBtn.setOnMousePressed(e ->{
+            direction = Direction.DOWN;
+            if(direction != null && position != null){
+                Move move = new Move(position, direction);
+                try {
+                    game.makeMove(move);
+                    updateBoard();
+                } catch (PetesPikeException e1) {
+                     // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                
+            }
+            position = null; 
+            direction = null;
+        });
+
+        rightBtn.setOnMousePressed(e ->{
+            direction = Direction.RIGHT;
+            if(direction != null && position != null){
+                Move move = new Move(position, direction);
+                try {
+                    game.makeMove(move);
+                    updateBoard();
+                } catch (PetesPikeException e1) {
+                     // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                
+            }
+            position = null; 
+            direction = null;
+        });
+
+        leftBtn.setOnMousePressed(e ->{
+            direction = Direction.LEFT;
+            if(direction != null && position != null){
+                Move move = new Move(position, direction);
+                try {
+                    game.makeMove(move);
+                    updateBoard();
+                } catch (PetesPikeException e1) {
+                     // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                
+            }
+            position = null; 
+            direction = null;
+        });
 
 
         Scene scene = new Scene(wholeWindow);
@@ -300,21 +372,36 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver, Even
                         square.setMinHeight(30);
                         board.add(square, j, i);
                     }else if(game.getSymbolAt(new Position(i, j)).equals("\u001b[38;5;220mP\u001b[0m")){
+                        final int k = i;
+                        final int l = j;
                         Button square = new Button("P");
                         square.setTextFill(Color.GOLD);
                         square.setMinWidth(30);
                         square.setMinHeight(30);
                         board.add(square, j, i);
+                        square.setOnMousePressed(e ->{
+                            position = new Position(k, l);
+                        });
                     }else if(game.getSymbolAt(new Position(i, j)).equals("T")){
+                        final int k = i;
+                        final int l = j;
                         Button square = new Button("T");
                         square.setMinWidth(30);
                         square.setMinHeight(30);
                         board.add(square, j, i);
+                        square.setOnMousePressed(e ->{
+                            position = new Position(k, l);
+                        });
                     }else{
+                        final int k = i;
+                        final int l = j;
                         Button square = new Button("G");
                         square.setMinWidth(30);
                         square.setMinHeight(30);
                         board.add(square, j, i);
+                        square.setOnMousePressed(e ->{
+                            position = new Position(k, l);
+                        });
                     }
                 }
             }

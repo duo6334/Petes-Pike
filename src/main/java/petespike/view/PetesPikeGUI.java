@@ -256,6 +256,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                      // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
+                boardGrid = makeBoard();
+                midRow.getChildren().set(0, boardGrid);
                 
             }
             position = null; 
@@ -273,6 +275,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                      // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
+                boardGrid = makeBoard();
+                midRow.getChildren().set(0, boardGrid);
                 
             }
             position = null; 
@@ -290,6 +294,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                      // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
+                boardGrid = makeBoard();
+                midRow.getChildren().set(0, boardGrid);
                 
             }
             position = null; 
@@ -307,7 +313,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                      // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-                
+                boardGrid = makeBoard();
+                midRow.getChildren().set(0, boardGrid);
             }
             position = null; 
             direction = null;
@@ -350,6 +357,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
     }
 
     }
+
 
 
     public void newGame(HBox middleRow, TextField fileText, HBox gameStatus){

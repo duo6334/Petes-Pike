@@ -254,16 +254,18 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 Move move = new Move(position, direction);
                 try {
                     game.makeMove(move);
-                    updateBoard();
                 } catch (PetesPikeException e1) {
                      // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
+<<<<<<< HEAD
+=======
                 pieceMoved(position, game.getPosition());
 
                 
+>>>>>>> da5075321f1dbb6a9f26174080eb5b0a39753ea6
             }
             position = null; 
             direction = null;

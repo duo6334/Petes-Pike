@@ -207,8 +207,12 @@ public class PetesPike {
         return board[position.getRow()][position.getCol()]; //had to change this for my code to work but did not double check if this is correct
     }
 
-    public Position getMountaintop(Position position){
+    public Position getMountaintop(){
         return this.mountainTop;
+    }
+
+    public Position getPete(){
+        return this.pete;
     }
 
     public List<Move> getPossibleMoves(){
@@ -284,7 +288,11 @@ public class PetesPike {
     }
 
     public Boolean hasWon(){
+<<<<<<< HEAD
+        return(getPete() == getMountaintop());
+=======
         return(pete.getRow()==mountainTop.getRow() && pete.getCol()==mountainTop.getCol());
+>>>>>>> da5075321f1dbb6a9f26174080eb5b0a39753ea6
     }
 }
 

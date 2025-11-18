@@ -165,7 +165,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
 
         // this will show the state (labels ^) of the game  
         HBox gameStatus = new HBox();
-        gameStatus.getChildren().addAll(invalidMove,movesLabel);
+        gameStatus.getChildren().addAll(statusLabel,movesLabel);
 
         HBox topRow = new HBox();
         topRow.getChildren().addAll(resetBtn,fileTextBox,newBtn);
@@ -222,7 +222,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
 
         resetBtn.setOnAction(e -> {
             // Reset by reloading the last filename
-            if (currentFilename != null && !currentFilename.isEmpty()) {
+            
                 // try {
                     // this.game = new PetesPike(currentFilename);
                     boardGrid = makeBoard();
@@ -231,9 +231,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                     statusLabel.setText("Game reset.");
                 // } catch (PetesPikeException ex) {
                 // }
-            } else {
-                statusLabel.setText("No filename to reset to. Use New Game first.");
-            }
+            
         });
 
         hintButton.setOnAction(e -> {
@@ -258,6 +256,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
+                pieceMoved(position, game.getPosition());
+
                 
             }
             position = null; 
@@ -277,6 +277,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
+                pieceMoved(position, game.getPosition());
+
                 
             }
             position = null; 
@@ -296,7 +298,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
-                
+                pieceMoved(position, game.getPosition());
             }
             position = null; 
             direction = null;
@@ -315,6 +317,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
+                pieceMoved(position, game.getPosition());
             }
             position = null; 
             direction = null;

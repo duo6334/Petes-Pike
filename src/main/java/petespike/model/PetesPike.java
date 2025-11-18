@@ -67,7 +67,7 @@ public class PetesPike {
                     }else if(boardRow.charAt(j)=='P'){
                         //takes special note of pete, and stores it for easy reference
                         this.pete=new Position(i,j);
-                        this.board[i][j]=AsciiColorCodes.GOLD+"P"+AsciiColorCodes.RESET;
+                        this.board[i][j]=AsciiColorCodes.GREEN+"P"+AsciiColorCodes.RESET;
                         this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         //takes special note of all peices, and stores them for easy reference particularly in finding available moves
@@ -288,11 +288,7 @@ public class PetesPike {
     }
 
     public Boolean hasWon(){
-<<<<<<< HEAD
         return(getPete() == getMountaintop());
-=======
-        return(pete.getRow()==mountainTop.getRow() && pete.getCol()==mountainTop.getCol());
->>>>>>> da5075321f1dbb6a9f26174080eb5b0a39753ea6
     }
 }
 

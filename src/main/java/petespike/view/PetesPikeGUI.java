@@ -238,9 +238,10 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
             // show a hint on the right side
             if (game == null) {
                 statusLabel.setText("Load a game first to get a hint.");
-                return;
+                // return;
             }
-            showHint(gameStatus, rightSide);
+            statusLabel.setText(" " + showHint());
+
         });
 
         upBtn.setOnMousePressed(e -> {
@@ -432,14 +433,14 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         return board;
     }
 
-    public void showHint(HBox gameStatus,VBox rightSide){
-        if (game == null) {
-            gameStatus.getChildren().set(0, new Label("Load a game first"));
-            return;
-        }
+    public Move showHint(){
+
         List<Move> possibleMoves = game.getPossibleMoves();
-        if (possibleMoves.size()>0){
-            Move possibleMove = possibleMoves.get(0);
+        Move retVal = null;
+        if (!possibleMoves.isEmpty()){
+            Move possibleMove = possibleMoves.remove(0);
+            retVal = possibleMove;
+
             hintMove = possibleMove;//storing last
             HBox move = new HBox();
             if(possibleMove.getDirection()==Direction.UP){
@@ -457,20 +458,22 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 left.setFitWidth(20);
                 left.setFitHeight(20);
                 move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),left);
-            }else{
-                ImageView right = new ImageView(rightArrow);
-                right.setFitWidth(20);
-                right.setFitHeight(20);
-                move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),right);
             }
+            ImageView right = new ImageView(rightArrow);
+            right.setFitWidth(20);
+            right.setFitHeight(20);
+            move.getChildren().addAll(new Label(game.getSymbolAt(possibleMove.getPosition())),right);
+            return retVal;
+            }
+        return null;
 
-            if (rightSide.getChildren().size() > 2) {
-                rightSide.getChildren().set(2,move);
-            }else {
-                rightSide.getChildren().add(move);
-            }
-            gameStatus.getChildren().set(0,new Label(""));
-            }else{gameStatus.getChildren().set(0,new Label("No possible moves"));}
+    //         if (rightSide.getChildren().size() > 2) {
+    //             rightSide.getChildren().set(2,move);
+    //         }else {
+    //             rightSide.getChildren().add(move);
+    //         }
+    //         gameStatus.getChildren().set(0,new Label(""));
+    //         }else{gameStatus.getChildren().set(0,new Label("No possible moves"));}
     }
 
     public void setCurrentFilename(String filename){

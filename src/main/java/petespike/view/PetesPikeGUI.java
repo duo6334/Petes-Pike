@@ -22,9 +22,6 @@ import petespike.model.PetesPike;
 import petespike.model.PetesPikeException;
 import petespike.model.PetesPikeObserver;
 import petespike.model.Position;
-import petespike.model.Direction;
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
 
 public class PetesPikeGUI extends Application implements PetesPikeObserver {
     private PetesPike game;
@@ -193,6 +190,17 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
 
         // Button actions
         newBtn.setOnAction(e -> {
+            //      try {
+            //     this.game = new PetesPike(currentFilename);
+            //     // update row/col and grid
+            //     boardGrid = makeBoard();
+            //     midRow.getChildren().set(0, boardGrid); // replace center with the new boardGrid
+            //     // reset status/moves
+            //     movesLabel.setText("moves:0");
+            //     statusLabel.setText("New game loaded.");
+            // } catch (PetesPikeException el) {
+            //     statusLabel.setText("Error: " + el.getMessage());
+            // }
                 try {
                     this.game = new PetesPike(list_of_files[list_index]);
                     boardGrid = makeBoard();

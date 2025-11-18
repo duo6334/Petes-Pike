@@ -202,15 +202,19 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
             //     statusLabel.setText("Error: " + el.getMessage());
             // }
                 try {
-                    this.game = new PetesPike(list_of_files[list_index]);
-                    boardGrid = makeBoard();
-                    midRow.getChildren().set(0, boardGrid);
-                    movesLabel.setText("moves:0");
-                    statusLabel.setText("New Game.");
-                    if ( list_index == 5) {
-                        setListIndex();
-                    }
-                    list_index++;
+                        this.game = new PetesPike(list_of_files[list_index]);
+
+                        boardGrid = makeBoard();
+                        midRow.getChildren().set(0, boardGrid);
+                        movesLabel.setText("moves:0");
+                        statusLabel.setText("New Game.");
+                        // setListIndex(list_index);
+                        list_index++;
+                        if (list_index == 5) {
+                            setListIndex(0);
+                        }
+                        
+                        // }
                 } catch (PetesPikeException ex) {
                     statusLabel.setText("Error: " + ex.getMessage());
                 }
@@ -222,7 +226,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 // try {
                     // this.game = new PetesPike(currentFilename);
                     boardGrid = makeBoard();
-                    midRow.getChildren().set(list_index, boardGrid);
+                    midRow.getChildren().set(0, boardGrid);
                     movesLabel.setText("moves:0");
                     statusLabel.setText("Game reset.");
                 // } catch (PetesPikeException ex) {
@@ -461,8 +465,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
     public void setCurrentFilename(String filename){
         this.currentFilename = "file:" + filename;
     }
-    public void setListIndex(){
-        this.list_index = 0;
+    public void setListIndex(int num){
+        this.list_index = num;
     }
     
 

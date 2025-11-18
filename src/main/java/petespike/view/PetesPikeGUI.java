@@ -29,7 +29,8 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
     private final String[] list_of_files = {"data/petes_pike_5_5_2_0.txt", "data/petes_pike_5_5_4_0.txt",
                                      "data/petes_pike_5_5_4_1.txt", "data/petes_pike_5_5_5_0.txt",
                                       "data/petes_pike_5_7_4_0.txt", "data/petes_pike_9_9_9_0.txt"};
-    private int list_index = 0;
+    public int list_index = 0;
+    public int tempIndex = list_index - 1;
         
     // UI
     private GridPane boardGrid;
@@ -201,16 +202,19 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
             // } catch (PetesPikeException el) {
             //     statusLabel.setText("Error: " + el.getMessage());
             // }
-                try {
+
+
+                try {   
                         this.game = new PetesPike(list_of_files[list_index]);
 
                         boardGrid = makeBoard();
                         midRow.getChildren().set(0, boardGrid);
                         movesLabel.setText("moves:0");
                         statusLabel.setText("New Game.");
-                        // setListIndex(list_index);
+                        tempIndex++;
                         list_index++;
-                        if (list_index == 5) {
+                        if (tempIndex == 5) {
+                            tempIndex = 0;
                             setListIndex(0);
                         }
                         
@@ -223,14 +227,14 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         resetBtn.setOnAction(e -> {
             // Reset by reloading the last filename
             
-                // try {
-                    // this.game = new PetesPike(currentFilename);
+                try {
+                    this.game = new PetesPike(list_of_files[tempIndex]);
                     boardGrid = makeBoard();
                     midRow.getChildren().set(0, boardGrid);
                     movesLabel.setText("moves:0");
                     statusLabel.setText("Game reset.");
-                // } catch (PetesPikeException ex) {
-                // }
+                } catch (PetesPikeException ex) {
+                }
             
         });
 
@@ -481,6 +485,9 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
     }
     public void setListIndex(int num){
         this.list_index = num;
+    }
+    public void setTempIndex(int num) {
+        this.tempIndex = num;
     }
     
 

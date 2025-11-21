@@ -24,7 +24,13 @@ public class PetesPike {
     private PetesPikeObserver observer;
     private Position to = null;
 
-
+    // contructor that makes deep copies
+    public PetesPike(PetesPike other) {
+        other.gameState = this.gameState;
+        other.board = this.board;
+        other.pete = this.pete;
+    }
+    
     public PetesPike(String filename) throws PetesPikeException{
         //sets the game to be a new game
         this.gameState=GameState.NEW;

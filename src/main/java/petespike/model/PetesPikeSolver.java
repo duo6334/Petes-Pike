@@ -20,13 +20,22 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
 
     @Override
     public Collection<PetesPikeSolver> getSuccessors() {
-        return null;
+        List<PetesPikeSolver> retVal = new ArrayList<>();
+        int length = moves.size();
+
+        return null;   // someone can pick this up
     }
     
 
+    /**
+     * 
+     * @return true if a move performed in valid
+     */
     @Override
     public boolean isValid() {
-        return true;
+        
+
+        return true; //not complete
     }
 
 
@@ -40,8 +49,16 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
         return isValid() == true && petesPike.hasWon();
     }
     
+
+    /**
+     * 
+     * @return the list of moves performed on the board
+     */
     public List<Move> getMoves() {
-        return null;
+        if (moves.size() < 1) {
+            return null;
+        }
+        return moves;
     }  
     
     public PetesPikeSolver solve(PetesPike petesPike) {

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class PetesPikeSolver {
+import backtracker.Configuration;
+
+public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
     private final PetesPike petesPike;
     private final List<Move> moves;
 
@@ -16,11 +18,13 @@ public class PetesPikeSolver {
     
 
 
+    @Override
     public Collection<PetesPikeSolver> getSuccessors() {
         return null;
     }
     
 
+    @Override
     public boolean isValid() {
         return true;
     }
@@ -31,6 +35,7 @@ public class PetesPikeSolver {
      * has reached goal
      * @return true if pete has reached  goal
      */
+    @Override
     public boolean isGoal() {
         return isValid() == true && petesPike.hasWon();
     }

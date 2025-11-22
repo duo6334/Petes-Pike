@@ -84,7 +84,11 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
 
 
     public PetesPikeSolver solve(PetesPike petesPike, boolean debug) {
-        return null;
+        PetesPike copy = new PetesPike(petesPike);
+        PetesPikeSolver start = new PetesPikeSolver(copy);
+
+        Backtracker<PetesPikeSolver> bt = new Backtracker<>(debug);
+        return bt.solve(start);
     }
     
 

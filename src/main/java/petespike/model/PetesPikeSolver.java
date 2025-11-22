@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import backtracker.Backtracker;
 import backtracker.Configuration;
 
 public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
@@ -21,9 +22,21 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
     @Override
     public Collection<PetesPikeSolver> getSuccessors() {
         List<PetesPikeSolver> retVal = new ArrayList<>();
-        int length = moves.size();
+        List<Move> possibleMoves = petesPike.getPossibleMoves();
+        for (Move m : possibleMoves) {
+            try {
+                PetesPike copy = new PetesPike(petesPike);
+                copy.makeMove(m);
+                PetesPikeSolver successor = new PetesPikeSolver(copy);
+                successor.moves.add(m);
+                retVal.add(successor);
+            }catch (PetesPikeException e){
 
-        return null;   // someone can pick this up
+            }
+        }
+        // int length = moves.size();
+
+        return retVal;
     }
     
 
@@ -62,7 +75,11 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
     }  
     
     public PetesPikeSolver solve(PetesPike petesPike) {
-        return null;
+        PetesPike copy = new PetesPike(petesPike);   // work on safe copy
+        PetesPikeSolver start = new PetesPikeSolver(copy);
+
+        Backtracker<PetesPikeSolver> bt = new Backtracker<>(false);
+        return bt.solve(start);
     }
 
 
@@ -71,7 +88,20 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
     }
     
 
+    @Override
+    public String toString() {
+        String result = "";
+        result += "Moves so far: " + moves.size();
 
+        for (Move m : moves) {
+            result += m.toString();
+        }
+
+        result += "Board:";
+        result += petesPike.toString();
+
+        return result;
+    }
     
     
     

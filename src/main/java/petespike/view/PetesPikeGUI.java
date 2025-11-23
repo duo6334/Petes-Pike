@@ -344,6 +344,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         try{
         this.game = new PetesPike(fileText.getText());
         middleRow.getChildren().set(0,makeBoard());
+        
         }catch(PetesPikeException e){
             gameStatus.getChildren().set(0,new Label(e.getMessage()));
         }

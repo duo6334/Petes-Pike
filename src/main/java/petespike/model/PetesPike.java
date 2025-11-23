@@ -22,8 +22,15 @@ public class PetesPike {
     private List<Position> peices = new ArrayList<>();
     private String[] nextColor= new String[9];
     private PetesPikeObserver observer;
+    private Position to = null;
 
-
+    // contructor that makes deep copies
+    public PetesPike(PetesPike other) {
+        other.gameState = this.gameState;
+        other.board = this.board;
+        other.pete = this.pete;
+    }
+    
     public PetesPike(String filename) throws PetesPikeException{
         //sets the game to be a new game
         this.gameState=GameState.NEW;
@@ -66,7 +73,7 @@ public class PetesPike {
                     }else if(boardRow.charAt(j)=='P'){
                         //takes special note of pete, and stores it for easy reference
                         this.pete=new Position(i,j);
-                        this.board[i][j]=AsciiColorCodes.GOLD+"P"+AsciiColorCodes.RESET;
+                        this.board[i][j]=AsciiColorCodes.GREEN+"P"+AsciiColorCodes.RESET;
                         this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         //takes special note of all peices, and stores them for easy reference particularly in finding available moves
@@ -80,7 +87,7 @@ public class PetesPike {
             }
             scanner.close();
         }catch(IOException e){
-            throw new PetesPikeException("File not found");
+
         }
     }
 
@@ -99,6 +106,14 @@ public class PetesPike {
     public GameState getGameState(){
         return this.gameState;
     }
+    
+    public void setToPosition(Position pos) {
+        this.to = pos;
+    }
+    public Position getPosition() {
+        return this.to;
+    }
+
 
 
     /**
@@ -122,7 +137,7 @@ public class PetesPike {
         }
     }
     
-    
+    // public boolean verifyMove()
 
     public void makeMove(Move move) throws PetesPikeException{
         String piece = getSymbolAt(move.getPosition());
@@ -139,7 +154,8 @@ public class PetesPike {
                 i--;
             }
             // final position
-            Position to = new Position(i+1, move.getPosition().getCol());
+            setToPosition( new Position(i+1, move.getPosition().getCol()));
+            // Position to = new Position(i+1, move.getPosition().getCol());
             board[i+1][move.getPosition().getCol()] = piece;
             // board has chnaged - notify
             notifyObserver(from, to);
@@ -153,7 +169,8 @@ public class PetesPike {
                 }
                 i++;
             }
-            Position to = new Position(i-1, move.getPosition().getCol());
+            setToPosition(new Position(i-1, move.getPosition().getCol()));
+            //Position to = new Position(i-1, move.getPosition().getCol());
             board[i-1][move.getPosition().getCol()] = piece;
             notifyObserver(from, to);
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
@@ -166,7 +183,8 @@ public class PetesPike {
                 }
                 i--;
             }
-            Position to = new Position(move.getPosition().getRow(), i+1);
+            setToPosition(new Position(move.getPosition().getRow(), i+1));
+            //Position to = new Position(move.getPosition().getRow(), i+1);
             board[move.getPosition().getRow()][i+1] = piece;
             notifyObserver(from, to);
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
@@ -179,7 +197,8 @@ public class PetesPike {
                 }
                 i++;
             }
-            Position to = new Position(move.getPosition().getRow(), i-1);
+            setToPosition(new Position(move.getPosition().getRow(), i-1));
+            // Position to = new Position(move.getPosition().getRow(), i-1);
             board[move.getPosition().getRow()][i-1] = piece;
             notifyObserver(from, to);
             board[move.getPosition().getRow()][move.getPosition().getCol()] = blank;
@@ -194,8 +213,12 @@ public class PetesPike {
         return board[position.getRow()][position.getCol()]; //had to change this for my code to work but did not double check if this is correct
     }
 
-    public Position getMountaintop(Position position){
+    public Position getMountaintop(){
         return this.mountainTop;
+    }
+
+    public Position getPete(){
+        return this.pete;
     }
 
     public List<Move> getPossibleMoves(){
@@ -271,7 +294,7 @@ public class PetesPike {
     }
 
     public Boolean hasWon(){
-        return(pete.getRow()==mountainTop.getRow()&&pete.getCol()==mountainTop.getCol());
+        return(getPete() == getMountaintop());
     }
 }
 

@@ -1,3 +1,4 @@
 Date/Time, Attndance, Location, Subject
 11/08 4:30, Nile, Leighann, Abby  , Golisano 1st floor, everything
 11/16 5:00 Nile, Leighann, Daniel, Golisano 1st floor, PetesPikeGUI
+11/17 3:00 Nile, Leighann, Danel, Abby,  Discord, Board & Movement buttons

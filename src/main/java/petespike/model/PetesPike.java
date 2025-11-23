@@ -23,6 +23,7 @@ public class PetesPike {
     private String[] nextColor= new String[9];
     private PetesPikeObserver observer;
     private Position to = null;
+    
 
 
     public PetesPike(String filename) throws PetesPikeException{
@@ -215,6 +216,8 @@ public class PetesPike {
         return this.pete;
     }
 
+    
+
     public List<Move> getPossibleMoves(){
         List<Position> tokens = makePeicesList();
         //creates the list to store moves
@@ -288,11 +291,7 @@ public class PetesPike {
     }
 
     public Boolean hasWon(){
-<<<<<<< HEAD
-        return(getPete() == getMountaintop());
-=======
-        return(pete.getRow()==mountainTop.getRow() && pete.getCol()==mountainTop.getCol());
->>>>>>> da5075321f1dbb6a9f26174080eb5b0a39753ea6
+        return(getPete().getRow() == getMountaintop().getRow() && getPete().getCol() == getMountaintop().getCol());
     }
 }
 

@@ -34,7 +34,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
     // UI
     private GridPane boardGrid;
     private Button[][] cellButtons;      // up to 9x9
-    private Label statusLabel;
+    private Label statusLabel = new Label("");
     private Label movesLabel = new Label("moves: ");
     private Button hintButton;
     private int rows = 0;
@@ -256,12 +256,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
                 }
                 boardGrid = makeBoard();
                 midRow.getChildren().set(0, boardGrid);
-<<<<<<< HEAD
-=======
                 pieceMoved(position, game.getPosition());
-
-                
->>>>>>> da5075321f1dbb6a9f26174080eb5b0a39753ea6
             }
             position = null; 
             direction = null;
@@ -339,7 +334,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         int count = game.getMoveCount();
         movesLabel.setText("moves:" + count);
         if (game.hasWon()) {
-        statusLabel.setText("Congratulations! You Won!");
+        movesLabel.setText("Congratulations! You Won!");
         } else {
         statusLabel.setText("Good Move!");
         }

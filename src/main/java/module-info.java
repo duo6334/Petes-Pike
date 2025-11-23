@@ -8,5 +8,5 @@ module petespike {
     opens petespike.view to javafx.fxml;
     exports petespike.view;
     exports petespike.model;
-    exports backtracker;
+    exports petespike.backtracker;
 }

@@ -1,4 +1,4 @@
-package backtracker;
+package petespike.backtracker;
 
 import java.util.Collection;
 

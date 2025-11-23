@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import backtracker.Backtracker;
-import backtracker.Configuration;
+import petespike.backtracker.Backtracker;
+import petespike.backtracker.Configuration;
 
 public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
     private final PetesPike petesPike;

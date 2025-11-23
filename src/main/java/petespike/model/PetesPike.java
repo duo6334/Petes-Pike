@@ -9,7 +9,6 @@ import java.util.Scanner;
 import petespike.view.AsciiColorCodes;
 
 public class PetesPike {
-    private char MOUNTAIN_SYMBOL = 'T';
     public char EMPTY_SYMBOL = '-';
     public char PETE_SYMBOL = 'P';
     private int moveCount;

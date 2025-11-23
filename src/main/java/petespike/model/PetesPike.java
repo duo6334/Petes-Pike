@@ -9,7 +9,6 @@ import java.util.Scanner;
 import petespike.view.AsciiColorCodes;
 
 public class PetesPike {
-    private char MOUNTAIN_SYMBOL = 'T';
     public char EMPTY_SYMBOL = '-';
     public char PETE_SYMBOL = 'P';
     private int moveCount;
@@ -23,9 +22,14 @@ public class PetesPike {
     private String[] nextColor= new String[9];
     private PetesPikeObserver observer;
     private Position to = null;
+
+    // contructor that makes deep copies
+    public PetesPike(PetesPike other) {
+        other.gameState = this.gameState;
+        other.board = this.board;
+        other.pete = this.pete;
+    }
     
-
-
     public PetesPike(String filename) throws PetesPikeException{
         //sets the game to be a new game
         this.gameState=GameState.NEW;
@@ -68,7 +72,7 @@ public class PetesPike {
                     }else if(boardRow.charAt(j)=='P'){
                         //takes special note of pete, and stores it for easy reference
                         this.pete=new Position(i,j);
-                        this.board[i][j]=AsciiColorCodes.GOLD+"P"+AsciiColorCodes.RESET;
+                        this.board[i][j]=AsciiColorCodes.GREEN+"P"+AsciiColorCodes.RESET;
                         this.peices.add(this.pete);
                     }else if(boardRow.charAt(j)!='-'){
                         //takes special note of all peices, and stores them for easy reference particularly in finding available moves
@@ -291,7 +295,7 @@ public class PetesPike {
     }
 
     public Boolean hasWon(){
-        return(getPete().getRow() == getMountaintop().getRow() && getPete().getCol() == getMountaintop().getCol());
+        return(getPete() == getMountaintop());
     }
 }
 

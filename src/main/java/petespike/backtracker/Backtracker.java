@@ -1,4 +1,4 @@
-package backtracker;
+package petespike.backtracker;
 
 /**
  * This class represents the classic recursive backtracking algorithm.

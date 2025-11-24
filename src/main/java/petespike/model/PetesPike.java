@@ -224,6 +224,8 @@ public class PetesPike {
         return this.pete;
     }
 
+    
+
     public List<Move> getPossibleMoves(){
         List<Position> tokens = makePeicesList();
         //creates the list to store moves

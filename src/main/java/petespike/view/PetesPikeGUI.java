@@ -337,7 +337,7 @@ public class PetesPikeGUI extends Application implements PetesPikeObserver {
         int count = game.getMoveCount();
         movesLabel.setText("moves:" + count);
         if (game.hasWon()) {
-        statusLabel.setText("Congratulations! You Won!");
+        movesLabel.setText("Congratulations! You Won!");
         } else {
         statusLabel.setText("Good Move!");
         }

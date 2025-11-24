@@ -22,7 +22,7 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
     public Collection<PetesPikeSolver> getSuccessors() {
         List<PetesPikeSolver> retVal = new ArrayList<>();
         int length = moves.size();
-
+        
         return null;   // someone can pick this up
     }
     
@@ -33,7 +33,7 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
      */
     @Override
     public boolean isValid() {
-        
+
 
         return true; //not complete
     }

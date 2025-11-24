@@ -28,6 +28,7 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
                 PetesPike copy = new PetesPike(petesPike);
                 copy.makeMove(m);
                 PetesPikeSolver successor = new PetesPikeSolver(copy);
+                successor.moves.addAll(this.moves);
                 successor.moves.add(m);
                 retVal.add(successor);
             }catch (PetesPikeException e){
@@ -68,9 +69,6 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
      * @return the list of moves performed on the board
      */
     public List<Move> getMoves() {
-        if (moves.size() < 1) {
-            return null;
-        }
         return moves;
     }  
     

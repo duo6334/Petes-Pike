@@ -113,15 +113,17 @@ public class PetesPikeCLI {
         if(possibleMoves==null){
           System.out.println("No solution available");
         }else{
-          for(Move move:possibleMoves){
             try {
+              Move move = possibleMoves.get(0);
               game.makeMove(move);
             } catch (Exception e) {
               System.err.println(e.getMessage());
             }
+            display(game);
           }
+          
         }
-      }
+      
 
     /**
      * quits the game

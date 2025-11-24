@@ -3,6 +3,7 @@ package petespike.view;
 import java.util.List;
 import java.util.Scanner;
 
+import petespike.backtracker.PetesPikeSolver;
 import petespike.model.Direction;
 import petespike.model.Move;
 import petespike.model.PetesPike;
@@ -107,13 +108,22 @@ public class PetesPikeCLI {
      */
 
       public static void hint(PetesPike game){
-        List possibleMoves= game.getPossibleMoves();
-        if(possibleMoves.size()==0){
-          System.out.println("no moves found");
+        PetesPikeSolver solver = new PetesPikeSolver(game);
+        PetesPikeSolver solution = solver.solve(game);
+        List<Move> possibleMoves= solution.getMoves();
+        if(possibleMoves==null){
+          System.out.println("No solution available");
         }else{
-        System.out.println("Try: "+possibleMoves.remove(1));
+            try {
+              Move move = possibleMoves.get(0);
+              System.out.println(move);
+            } catch (Exception e) {
+              System.err.println(e.getMessage());
+            }
+          }
+          
         }
-      }
+      
 
     /**
      * quits the game
@@ -167,9 +177,11 @@ public class PetesPikeCLI {
                     break;
                 case BOARD:
                     displayBoard(game);
+                    break;
                 case NEW:
                     displayBoard(game); 
                     newGame();
+                    break;
             }
           }
       }

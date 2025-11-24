@@ -9,7 +9,6 @@ import java.util.Scanner;
 import petespike.view.AsciiColorCodes;
 
 public class PetesPike {
-    private char MOUNTAIN_SYMBOL = 'T';
     public char EMPTY_SYMBOL = '-';
     public char PETE_SYMBOL = 'P';
     private int moveCount;
@@ -26,9 +25,15 @@ public class PetesPike {
 
     // contructor that makes deep copies
     public PetesPike(PetesPike other) {
-        other.gameState = this.gameState;
-        other.board = this.board;
-        other.pete = this.pete;
+        this.gameState = other.getGameState();
+        this.board = new String[other.getRows()][other.getCols()];
+        for (int i = 0; i < other.getRows(); i++) {
+            for (int j = 0; j < other.getCols(); j++) {
+                this.board[i][j] = other.getBoard()[i][j];
+            }
+        }
+        this.pete = other.getPete();
+        
     }
     
     public PetesPike(String filename) throws PetesPikeException{
@@ -112,6 +117,9 @@ public class PetesPike {
     }
     public Position getPosition() {
         return this.to;
+    }
+    public String[][] getBoard() {
+        return board;
     }
 
 
@@ -221,6 +229,8 @@ public class PetesPike {
         return this.pete;
     }
 
+    
+
     public List<Move> getPossibleMoves(){
         List<Position> tokens = makePeicesList();
         //creates the list to store moves
@@ -294,7 +304,7 @@ public class PetesPike {
     }
 
     public Boolean hasWon(){
-        return(getPete() == getMountaintop());
+        return(getPete().equals(getMountaintop()));
     }
 }
 

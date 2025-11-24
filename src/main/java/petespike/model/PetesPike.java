@@ -25,9 +25,10 @@ public class PetesPike {
 
     // contructor that makes deep copies
     public PetesPike(PetesPike other) {
-        other.gameState = this.gameState;
-        other.board = this.board;
-        other.pete = this.pete;
+        this.gameState = other.getGameState();
+        this.board = other.getBoard();
+        this.pete = other.getPete();
+        
     }
     
     public PetesPike(String filename) throws PetesPikeException{
@@ -111,6 +112,9 @@ public class PetesPike {
     }
     public Position getPosition() {
         return this.to;
+    }
+    public String[][] getBoard() {
+        return board;
     }
 
 

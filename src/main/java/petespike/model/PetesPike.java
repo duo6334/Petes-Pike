@@ -26,7 +26,12 @@ public class PetesPike {
     // contructor that makes deep copies
     public PetesPike(PetesPike other) {
         this.gameState = other.getGameState();
-        this.board = other.getBoard();
+        this.board = new String[other.getRows()][other.getCols()];
+        for (int i = 0; i < other.getRows(); i++) {
+            for (int j = 0; j < other.getCols(); j++) {
+                this.board[i][j] = other.getBoard()[i][j];
+            }
+        }
         this.pete = other.getPete();
         
     }
@@ -299,7 +304,7 @@ public class PetesPike {
     }
 
     public Boolean hasWon(){
-        return(getPete() == getMountaintop());
+        return(getPete().equals(getMountaintop()));
     }
 }
 

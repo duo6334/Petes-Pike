@@ -18,10 +18,11 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
 
     @Override
     public Collection<PetesPikeSolver> getSuccessors(){
+        List<PetesPikeSolver> successors = new ArrayList<>();
         try {
             
         
-        List<PetesPikeSolver> successors = new ArrayList<>();
+        
 
         for (Move move : petesPike.getPossibleMoves()) {
 
@@ -45,7 +46,7 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
         } catch (Exception e) {
             // TODO: handle exception
         }
-        return null;
+        return successors;
     }
 
 

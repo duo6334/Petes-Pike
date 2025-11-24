@@ -109,17 +109,17 @@ public class PetesPikeCLI {
 
       public static void hint(PetesPike game){
         PetesPikeSolver solver = new PetesPikeSolver(game);
-        List<Move> possibleMoves= solver.getMoves();
+        PetesPikeSolver solution = solver.solve(game);
+        List<Move> possibleMoves= solution.getMoves();
         if(possibleMoves==null){
           System.out.println("No solution available");
         }else{
             try {
               Move move = possibleMoves.get(0);
-              game.makeMove(move);
+              System.out.println(move);
             } catch (Exception e) {
               System.err.println(e.getMessage());
             }
-            display(game);
           }
           
         }
@@ -177,9 +177,11 @@ public class PetesPikeCLI {
                     break;
                 case BOARD:
                     displayBoard(game);
+                    break;
                 case NEW:
                     displayBoard(game); 
                     newGame();
+                    break;
             }
           }
       }

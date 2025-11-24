@@ -47,7 +47,7 @@ public class PetesPikeSolver implements Configuration<PetesPikeSolver>{
      */
     @Override
     public boolean isValid() {
-        
+
 
         return true; //not complete
     }

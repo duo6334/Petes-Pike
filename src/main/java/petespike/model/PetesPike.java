@@ -92,7 +92,7 @@ public class PetesPike {
             }
             scanner.close();
         }catch(IOException e){
-
+            throw new PetesPikeException("Error reading file: " + e.getMessage());
         }
     }
 

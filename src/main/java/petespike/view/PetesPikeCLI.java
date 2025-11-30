@@ -3,7 +3,7 @@ package petespike.view;
 import java.util.List;
 import java.util.Scanner;
 
-import petespike.backtracker.PetesPikeSolver;
+import petespike.model.PetesPikeSolver;
 import petespike.model.Direction;
 import petespike.model.Move;
 import petespike.model.PetesPike;
